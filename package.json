@@ -1,0 +1,11 @@
+{
+  "workspaces": [ "abacate-chat", "abacate-chat-api" ],
+  "scripts": {
+    "build:frontend": "npm run build --workspace=abacate-chat",
+    "start:frontend": "npm run start --workspace=abacate-chat",
+    "dev:frontend": "npm run dev --workspace=abacate-chat",
+    "build:backend": "npm run build --workspace=abacate-chat-api",
+    "start:backend": "npm run start --workspace=abacate-chat-api",
+    "dev:backend": "npm run dev --workspace=abacate-chat-api"
+  }
+}
