@@ -1,5 +1,4 @@
 import { ReactNode } from "react";
-import Link from "next/link";
 
 export interface SocialLink {
   name: string;
@@ -18,14 +17,15 @@ export default function SocialIcons({ links, className = ""}: SocialIconsProps) 
       
       {links.map((link) => {
         return (
-          <Link
+          <a
             key={link.name}
+            rel="noopener noreferrer"
             target="_blank"
             href={link.url}
             className="hover:opacity-80 transition-opacity"
           >
             {link.icon}
-          </Link>
+          </a>
         );
       })}
     </div>
