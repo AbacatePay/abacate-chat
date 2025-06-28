@@ -92,7 +92,7 @@ export const ChatInterface = () => {
               initial={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: 20 }}
               transition={{ duration: 0.2 }}
-              className="flex items-center px-2 py-1 border rainbow-border rounded-lg bg-white"
+              className="flex items-center px-2 py-1 border rainbow-border rounded-lg"
             >
               <p className="flex-1 text-sm">
                 Quer integrar a Abacate usando Lovable? Preparamos um prompt

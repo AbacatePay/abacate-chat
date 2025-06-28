@@ -57,7 +57,56 @@
     --bot-message-foreground: 158 64% 20%;
     --chat-input: 0 0% 100%;
     --chat-input-border: 158 30% 85%;
+  }
 
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --background: 0 0% 6%;
+      --foreground: 158 30% 95%;
+
+      --card: 0 0% 10%;
+      --card-foreground: 158 30% 95%;
+
+      --popover: 0 0% 10%;
+      --popover-foreground: 158 30% 95%;
+
+      --primary: 158 64% 45%;
+      --primary-foreground: 158 20% 8%;
+
+      --secondary: 158 20% 15%;
+      --secondary-foreground: 158 30% 95%;
+
+      --muted: 158 20% 15%;
+      --muted-foreground: 158 20% 65%;
+
+      --accent: 158 20% 20%;
+      --accent-foreground: 158 30% 95%;
+
+      --destructive: 0 62.8% 30.6%;
+      --destructive-foreground: 210 40% 98%;
+
+      --border: 158 20% 20%;
+      --input: 158 20% 20%;
+      --ring: 158 64% 45%;
+
+      --sidebar-background: 0 0% 6%;
+      --sidebar-foreground: 158 30% 95%;
+      --sidebar-primary: 158 64% 45%;
+      --sidebar-primary-foreground: 0 0% 100%;
+      --sidebar-accent: 158 20% 12%;
+      --sidebar-accent-foreground: 158 30% 95%;
+      --sidebar-border: 158 20% 18%;
+      --sidebar-ring: 158 64% 45%;
+
+      /* Chatbot colors for dark mode */
+      --chat-background: 158 20% 6%;
+      --user-message: 158 20% 12%;
+      --user-message-foreground: 158 30% 95%;
+      --bot-message: 158 20% 10%;
+      --bot-message-foreground: 158 30% 95%;
+      --chat-input: 158 20% 10%;
+      --chat-input-border: 158 20% 25%;
+    }
   }
 
   .dark {
@@ -144,11 +193,31 @@
   .rainbow-border {
     position: relative;
     border: double 2px transparent;
-    background-image: linear-gradient(white, white), 
+    background-image: linear-gradient(hsl(var(--chat-background)), hsl(var(--chat-background))), 
       linear-gradient(to right, #FF5858, #B345D5, #FF8B28, #D9A1F1);
     background-origin: border-box;
     background-clip: padding-box, border-box;
   }
+}
+
+.bg-custom {
+  background-color: hsl(var(--background));
+}
+
+.bg-alt-custom {
+  background-color: hsl(var(--chat-background));
+}
+
+.text-custom {
+  color: hsl(var(--foreground));
+}
+
+.dark-text-custom {
+  color: hsl(0 0% 2%);
+}
+
+.text-alt-custom:hover {
+  color: hsl(158 20% 12%);
 }
 
 /* ---------------------------------------------------------------------------- */
