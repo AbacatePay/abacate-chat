@@ -13,7 +13,7 @@ export function InitialChat({
       <h1
         className="
       font-semibold text-2xl sm:text-3xl 
-      md:text-4xl leading-tight text-center text-[#121217]"
+      md:text-4xl leading-tight text-center text-gray-dark"
       >
         Qual tech você quer usar para integrar a Abacate?
       </h1>

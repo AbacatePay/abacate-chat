@@ -140,7 +140,7 @@ export const ChatInterface = () => {
             }}
             disabled={isLoading || !inputValue.trim()}
             size="icon"
-            className="bg-[#89BA4F] hover:opacity-70 transition-colors"
+            className="bg-abacate-500 hover:opacity-70 transition-colors"
           >
             {isLoading ? (
               <Loader2 className="w-4 h-4 animate-spin" />
