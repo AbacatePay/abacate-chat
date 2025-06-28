@@ -49,7 +49,7 @@ export default function ButtonsLanguageSelect({
         <button
           key={code}
           onClick={() => onSelect(prompt)}
-          className="rounded-full border-zinc-200 border-1 text-black px-4 py-2 hover:bg-zinc-50 font-bold flex items-center gap-2"
+          className="rounded-full border-zinc-200 border-1 text-custom px-4 py-2 hover:bg-zinc-50 text-alt-custom font-bold flex items-center gap-2"
         >
           <Icon />
           {label}

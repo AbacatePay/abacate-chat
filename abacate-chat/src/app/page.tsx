@@ -14,7 +14,7 @@ export default function Page() {
   };
 
   return (
-    <div className="bg-white w-full h-screen flex flex-col justify-center items-center overflow-hidden">
+    <div className="bg-custom w-full h-screen flex flex-col justify-center items-center overflow-hidden">
       <div className="w-full max-w-3xl flex flex-col flex-1 overflow-hidden p-5">
         <ChatInterfaceV2 />
       </div>
