@@ -22,7 +22,7 @@ export const CodeBlock = ({
   return (
     <Highlight code={code.replace(/\n$/, "")} language={language}>
       {({ tokens, getLineProps, getTokenProps }) => (
-        <pre className="p-4 rounded-lg bg-[#181818] dark:bg-slate-800 font-mono text-sm leading-6 max-w-full">
+        <pre className="p-4 rounded-lg bg-code-dark dark:bg-slate-800 font-mono text-sm leading-6 max-w-full">
           <code className="block text-slate-900 dark:text-slate-50 overflow-x-auto whitespace-pre">
             {tokens.map((line, i) => (
               <div

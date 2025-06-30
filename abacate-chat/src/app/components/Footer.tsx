@@ -6,7 +6,7 @@ import IconGithub from "@icons/github";
 
 export default function Footer() {
   return (
-    <footer className="flex items-center px-8 gap-4 mt-2 w-full justify-between text-[#4C5267]">
+    <footer className="flex items-center px-8 gap-4 mt-2 w-full justify-between text-gray-text">
       <div>
         <p className="font-semibold text-4 text-right align-middle">
           AbacatePay @ {new Date().getFullYear()}
@@ -19,7 +19,7 @@ export default function Footer() {
         <p className="font-semibold text-4 text-right align-middle">
           Privacidade
         </p>
-        <hr className="w-1px h-5 bg-[#E2E7F1]" />
+        <hr className="w-1px h-5 bg-gray-border" />
         <a target="_blank" href="https://discord.gg/sD7tXPVWUm">
           <IconDiscord />
         </a>

@@ -1,8 +1,31 @@
 @import "tailwindcss";
 
+@theme abacate-chat {
+  /*Color abacate*/
+  --color-abacate-50: #f0f9f0;
+  --color-abacate-100: #dcf2dc;
+  --color-abacate-200: #bce4bc;
+  --color-abacate-300: #8dd08d;
+  --color-abacate-400: #5bb55b;
+  --color-abacate-500: #89BA4F;
+  --color-abacate-600: #6ba03f;
+  --color-abacate-700: #548033;
+  --color-abacate-800: #45652a;
+  --color-abacate-900: #3a5424;
+  --color-abacate-950: #1d2e12;
 
-@theme {
+  /*Color green*/
   --color-green-abc: #9EEA6C;
+
+  /*Color gray*/
+  --color-gray-light: #F6F8FA;
+  --color-gray-border: #E2E7F1;
+  --color-gray-text: #4C5267;
+  --color-gray-dark: #121217;
+  --color-gray-placeholder: #7A7A8C;
+
+  /*Color code*/
+  --color-code-dark: #181818;
 }
 
 /* ---------------------------------------------------------------------------- */
