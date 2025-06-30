@@ -51,7 +51,7 @@ export default function MainInput({
         placeholder="Quero integrar a abacate com..."
         className="
               w-full h-full resize-none
-              text-custom text-base font-normal
+              font-color text-base font-normal
               placeholder-[#7A7A8C] focus:outline-none
             "
         onKeyDown={handleKeyPress}

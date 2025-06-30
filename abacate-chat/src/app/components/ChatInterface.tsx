@@ -19,7 +19,6 @@ export const ChatInterface = () => {
     sendMessage,
   } = useChat();
 
-  const scrollAreaRef = useRef<HTMLDivElement>(null);
   const textareaRef = useRef<HTMLTextAreaElement>(null);
   const messagesEndRef = useRef<HTMLDivElement>(null);
   const [isCopied, setIsCopied] = useState(false);
@@ -66,12 +65,6 @@ export const ChatInterface = () => {
     } catch (err) {
       console.error("Failed to copy text: ", err);
     }
-  };
-
-  const messageVariants = {
-    initial: { opacity: 0, y: 20 },
-    animate: { opacity: 1, y: 0 },
-    exit: { opacity: 0, y: -20 },
   };
 
   return (

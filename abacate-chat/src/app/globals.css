@@ -208,11 +208,11 @@
   background-color: hsl(var(--chat-background));
 }
 
-.text-custom {
+.font-color {
   color: hsl(var(--foreground));
 }
 
-.dark-text-custom {
+.dark-font-color {
   color: hsl(0 0% 2%);
 }
 
