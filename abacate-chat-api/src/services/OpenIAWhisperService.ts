@@ -3,6 +3,9 @@ import { ITranscribeAudioModel } from "../interfaces/ITranscribeAudioModel";
 import ffmpeg from "fluent-ffmpeg";
 import tmp from "tmp-promise";
 import { promises as fs } from "fs";
+import ffmpegPath from "@ffmpeg-installer/ffmpeg";
+
+ffmpeg.setFfmpegPath(ffmpegPath.path);
 
 export class OpenIAWhisperService implements ITranscribeAudioModel {
   private openai: OpenAI;
