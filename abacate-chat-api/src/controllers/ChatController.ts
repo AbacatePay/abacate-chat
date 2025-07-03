@@ -55,19 +55,24 @@ export class ChatController {
     return this.router;
   }
 
+  private async parseMessage(req: Request): Promise<string> {
+    const data = req.body;
+    const audioFile = req.file;
+
+    if (audioFile) {
+      return await this.transcribeAudioService.transcribeAudio(
+        audioFile.buffer
+      );
+    }
+
+    return data.message?.trim();
+  }
+
   private async createChat(req: Request, res: Response): Promise<void> {
     try {
       const data = req.body;
 
-      const audioFile = req.file;
-
-      let message: string = data.message?.trim() ?? "";
-
-      if (audioFile) {
-        message = await this.transcribeAudioService.transcribeAudio(
-          audioFile.buffer
-        );
-      }
+      const message = await this.parseMessage(req);
 
       if (data.stream !== false) {
         this.setStreamHeaders(res);
@@ -101,17 +106,9 @@ export class ChatController {
 
   private async continueChat(req: Request, res: Response): Promise<void> {
     try {
-      const { threadId, message: messageBody, stream } = req.body;
+      const { threadId, _, stream } = req.body;
 
-      const audioFile = req.file;
-
-      let message: string = messageBody?.trim() ?? "";
-
-      if (audioFile) {
-        message = await this.transcribeAudioService.transcribeAudio(
-          audioFile.buffer
-        );
-      }
+      const message = await this.parseMessage(req);
 
       const aiResponse = this.chatService.continueChat(threadId, message);
       if (stream !== false) {
