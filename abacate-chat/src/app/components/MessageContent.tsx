@@ -26,6 +26,9 @@ const CopyablePre = (props: any) => {
       <pre {...props} />
       <button
         onClick={handleCopy}
+        aria-label={isCopied ? 'Copiado' : 'Copiar código'}
+        type="button"
+        role="button"
         className="text-sm z-10 absolute top-2 right-2 rounded-sm flex items-center justify-center gap-2 px-2 py-1 hover:cursor-pointer bg-white hover:bg-gray-100"
       >
         {isCopied ? <Check /> : <Copy />}
