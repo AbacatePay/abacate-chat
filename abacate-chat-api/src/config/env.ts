@@ -10,4 +10,7 @@ export const config = {
   itzam: {
     apiKey: getRequiredEnvVar("ITZAM_API_KEY"),
   },
+  openIA: {
+    apiKey: getRequiredEnvVar("OPENAI_API_KEY"),
+  },
 } as const;
