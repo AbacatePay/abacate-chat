@@ -8,15 +8,15 @@ export default function Footer() {
   return (
     <footer className="flex items-center px-8 gap-4 mt-2 w-full justify-between text-gray-text">
       <div>
-        <p className="font-semibold text-4 text-right align-middle">
+        <p className="font-semibold text-4 text-right align-middle font-color">
           AbacatePay @ {new Date().getFullYear()}
         </p>
       </div>
       <div className="flex gap-4 items-center">
-        <p className="font-semibold text-4 text-right align-middle">
+        <p className="font-semibold text-4 text-right align-middle font-color">
           Termos e condições
         </p>
-        <p className="font-semibold text-4 text-right align-middle">
+        <p className="font-semibold text-4 text-right align-middle font-color">
           Privacidade
         </p>
         <hr className="w-1px h-5 bg-gray-border" />
