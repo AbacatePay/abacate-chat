@@ -21,8 +21,8 @@ export class ChatController {
   ) {
     this.router = Router();
     this.chatService = chatService;
-    this.setupRoutes();
     this.transcribeAudioService = transcribeAudioService;
+    this.setupRoutes();
   }
 
   private setupRoutes() {

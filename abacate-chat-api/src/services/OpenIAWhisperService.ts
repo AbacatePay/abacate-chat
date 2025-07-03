@@ -28,14 +28,18 @@ export class OpenIAWhisperService implements ITranscribeAudioModel {
       type: "audio/ogg",
     });
 
-    const whisperResponse = await this.openai.audio.transcriptions.create({
-      model: "whisper-1",
-      language,
-      file,
-      response_format: "json",
-    });
-
-    return whisperResponse.text;
+    try {
+      const whisperResponse = await this.openai.audio.transcriptions.create({
+        model: "whisper-1",
+        language,
+        file,
+        response_format: "json",
+      });
+      return whisperResponse.text;
+    } catch (error) {
+      console.error("Error in transcription:", error);
+      throw new Error(`Transcription failed: ${error.message}`);
+    }
   }
 
   /**
@@ -46,7 +50,7 @@ export class OpenIAWhisperService implements ITranscribeAudioModel {
     outputFormat = "ogg"
   ): Promise<Buffer> {
     if (!["ogg", "mp3"].includes(outputFormat)) {
-      throw new Error("Formato de saída inválido. Use 'ogg' ou 'mp3'.");
+      throw new Error("Invalid output format. Use 'ogg' or 'mp3'");
     }
 
     const inputTmp = await tmp.file({ postfix: ".wav" });
