@@ -74,6 +74,8 @@ export class ChatController {
 
       const message = await this.parseMessage(req);
 
+      console.log(message);
+
       if (data.stream !== false) {
         this.setStreamHeaders(res);
       }

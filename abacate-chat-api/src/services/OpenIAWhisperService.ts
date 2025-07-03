@@ -4,6 +4,7 @@ import ffmpeg from "fluent-ffmpeg";
 import tmp from "tmp-promise";
 import { promises as fs } from "fs";
 import ffmpegPath from "@ffmpeg-installer/ffmpeg";
+import { Readable } from "stream";
 
 ffmpeg.setFfmpegPath(ffmpegPath.path);
 
@@ -53,6 +54,19 @@ export class OpenIAWhisperService implements ITranscribeAudioModel {
       throw new Error("Invalid output format. Use 'ogg' or 'mp3'");
     }
 
+    // For files smaller than 10MB, use stream processing
+    if (inputBuffer.length < 10 * 1024 * 1024) {
+      return this.optimizeAudioBufferWithStream(inputBuffer, outputFormat);
+    }
+
+    // For larger files, use temporary files
+    return this.optimizeAudioBufferWithTempFile(inputBuffer, outputFormat);
+  }
+
+  async optimizeAudioBufferWithTempFile(
+    inputBuffer: Buffer,
+    outputFormat = "ogg"
+  ): Promise<Buffer> {
     const inputTmp = await tmp.file({ postfix: ".wav" });
     const outputTmp = await tmp.file({ postfix: `.${outputFormat}` });
 
@@ -79,5 +93,32 @@ export class OpenIAWhisperService implements ITranscribeAudioModel {
       await inputTmp.cleanup();
       await outputTmp.cleanup();
     }
+  }
+
+  private async optimizeAudioBufferWithStream(
+    inputBuffer: Buffer,
+    outputFormat: string
+  ): Promise<Buffer> {
+    return new Promise<Buffer>((resolve, reject) => {
+      const inputStream = new Readable({
+        read() {
+          this.push(inputBuffer);
+          this.push(null);
+        },
+      });
+
+      const chunks: Buffer[] = [];
+
+      const ffmpegProcess = ffmpeg(inputStream)
+        .audioFilters("silenceremove=1:0:-50dB")
+        .audioFrequency(16000)
+        .format(outputFormat)
+        .on("error", reject)
+        .pipe();
+
+      ffmpegProcess.on("data", (chunk: Buffer) => chunks.push(chunk));
+      ffmpegProcess.on("end", () => resolve(Buffer.concat(chunks)));
+      ffmpegProcess.on("error", reject);
+    });
   }
 }
