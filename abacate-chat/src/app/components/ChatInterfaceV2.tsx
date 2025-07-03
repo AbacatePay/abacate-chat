@@ -1,4 +1,3 @@
-import TextArea from "@/app/components/MainInput";
 import ButtonsLanguageSelect from "@/app/components/ButtonsLanguageSelect";
 import { useRef, useState } from "react";
 import { InitialChat } from "./InitialChat";
@@ -43,15 +42,15 @@ export function ChatInterfaceV2() {
   const lovablePrompt = () => {
     if (isFirstMessage) {
       return (
-        <div className="flex items-center px-2 py-1 border rainbow-border rounded-lg bg-white">
-          <p className="flex-1 text-sm">
+        <div className="flex items-center px-2 py-1 border rainbow-border rounded-lg">
+          <p className="flex-1 text-sm font-color">
             Quer integrar a Abacate usando Lovable? Preparamos um prompt para
             você
           </p>
           <Button
             size="sm"
             variant="outline"
-            className="ml-4 cursor-pointer"
+            className="ml-4 cursor-pointer font-color"
             onClick={handleCopyPrompt}
           >
             {isCopied ? (
