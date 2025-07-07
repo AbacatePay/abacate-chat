@@ -59,8 +59,7 @@ export const useChat = (options?: UseChatOptions) => {
 
     setMessages((prev) => [...prev, userMessage, botMessage]);
     setInputValue("");
-    // Limpar a URL quando enviar a mensagem
-    router.replace("/", { scroll: false });
+    router.replace("/");
     setIsLoading(true);
 
     try {
