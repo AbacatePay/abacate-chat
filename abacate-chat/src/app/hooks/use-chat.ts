@@ -6,7 +6,11 @@ import {
 } from "@/app/services/chatApi";
 import { useToast } from "@/app/hooks/use-toast";
 
-export const useChat = () => {
+interface UseChatOptions {
+  initialQuery?: string;
+}
+
+export const useChat = (options?: UseChatOptions) => {
   const [messages, setMessages] = useState<ChatMessageType[]>([]);
   const [inputValue, setInputValue] = useState("");
   const [isLoading, setIsLoading] = useState(false);
@@ -89,7 +93,6 @@ export const useChat = () => {
     }
   };
 
-  // Load prompt text
   useEffect(() => {
     const fetchPromptText = async () => {
       try {
@@ -104,6 +107,13 @@ export const useChat = () => {
 
     fetchPromptText();
   }, []);
+
+  useEffect(() => {
+    if (options?.initialQuery && options.initialQuery.trim() && isFirstMessage) {
+      const query = options.initialQuery;
+      setInputValue(query);
+    }
+  }, [options?.initialQuery, isFirstMessage]);
 
   // Cleanup on unmount
   useEffect(() => {

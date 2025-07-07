@@ -8,11 +8,11 @@ import MainInput from "@/app/components/MainInput";
 import { Button } from "./ui/button";
 import { Check, Copy } from "lucide-react";
 
-/**
- * Componente que renderiza tela principal e chat
- * @returns
- */
-export function ChatInterfaceV2() {
+interface ChatInterfaceV2Props {
+  initialQuery?: string;
+}
+
+export function ChatInterfaceV2({ initialQuery }: ChatInterfaceV2Props) {
   const {
     messages,
     inputValue,
@@ -21,7 +21,7 @@ export function ChatInterfaceV2() {
     promptText,
     isFirstMessage,
     sendMessage,
-  } = useChat();
+  } = useChat({ initialQuery });
   const messagesEndRef = useRef<HTMLDivElement>(null);
 
   const [isCopied, setIsCopied] = useState(false);
