@@ -1,4 +1,5 @@
 import { useState, useRef, useCallback, useEffect } from "react";
+import { useRouter } from "next/navigation";
 import {
   ChatMessage as ChatMessageType,
   StreamChunk,
@@ -20,6 +21,8 @@ export const useChat = (options?: UseChatOptions) => {
 
   const cleanupRef = useRef<(() => void) | null>(null);
   const { toast } = useToast();
+  const router = useRouter();
+
 
   const handleChunk = useCallback((chunk: StreamChunk) => {
     if (chunk.type === "threadId" && chunk.threadId) {
@@ -56,6 +59,8 @@ export const useChat = (options?: UseChatOptions) => {
 
     setMessages((prev) => [...prev, userMessage, botMessage]);
     setInputValue("");
+    // Limpar a URL quando enviar a mensagem
+    router.replace("/", { scroll: false });
     setIsLoading(true);
 
     try {
@@ -108,14 +113,26 @@ export const useChat = (options?: UseChatOptions) => {
     fetchPromptText();
   }, []);
 
+  const updateUrlWithQuery = useCallback((query: string) => {
+    if (query.trim()) {
+      const encodedQuery = encodeURIComponent(query);
+      router.replace(`/?query=${encodedQuery}`);
+    } else {
+      router.replace("/");
+    }
+  }, [router]);
+
+  const setInputValueWithUrl = useCallback((value: string) => {
+    setInputValue(value);
+    updateUrlWithQuery(value);
+  }, [updateUrlWithQuery]);
+
   useEffect(() => {
     if (options?.initialQuery && options.initialQuery.trim() && isFirstMessage) {
-      const query = options.initialQuery;
-      setInputValue(query);
+      setInputValueWithUrl(options.initialQuery);
     }
-  }, [options?.initialQuery, isFirstMessage]);
+  }, [options?.initialQuery, isFirstMessage, setInputValueWithUrl]);
 
-  // Cleanup on unmount
   useEffect(() => {
     return () => {
       if (cleanupRef.current) {
@@ -127,7 +144,7 @@ export const useChat = (options?: UseChatOptions) => {
   return {
     messages,
     inputValue,
-    setInputValue,
+    setInputValue: setInputValueWithUrl,
     isLoading,
     promptText,
     isFirstMessage,
