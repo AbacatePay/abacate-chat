@@ -35,7 +35,7 @@ export const useChat = () => {
 
   const sendMessage = async (message: string) => {
     if (!message.trim() || isLoading) return;
-
+    setInputValue("");
     if (isFirstMessage) {
       setIsFirstMessage(false);
     }
