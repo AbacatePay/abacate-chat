@@ -1,6 +1,6 @@
 # AbacatePay AI Assistant
 
-A chatbot assistant designed to help users with AbacatePay-related queries and tasks.
+A chatbot assistant designed to help users with AbacatePay-related queries and tasks. 
 
 ## Project Overview
 
