@@ -7,11 +7,8 @@ import {
 } from "@/app/services/chatApi";
 import { useToast } from "@/app/hooks/use-toast";
 
-interface UseChatOptions {
-  initialQuery?: string;
-}
 
-export const useChat = (options?: UseChatOptions) => {
+export const useChat = () => {
   const [messages, setMessages] = useState<ChatMessageType[]>([]);
   const [inputValue, setInputValue] = useState("");
   const [isLoading, setIsLoading] = useState(false);

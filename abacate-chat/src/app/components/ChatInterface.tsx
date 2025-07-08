@@ -19,6 +19,7 @@ export const ChatInterface = () => {
     sendMessage,
   } = useChat();
 
+  
   const textareaRef = useRef<HTMLTextAreaElement>(null);
   const messagesEndRef = useRef<HTMLDivElement>(null);
   const [isCopied, setIsCopied] = useState(false);
@@ -27,7 +28,6 @@ export const ChatInterface = () => {
     messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
   };
 
-  // Scroll on new messages
   useEffect(() => {
     scrollToBottom();
   }, [messages]);
@@ -67,11 +67,6 @@ export const ChatInterface = () => {
     }
   };
 
-  const messageVariants = {
-    initial: { opacity: 0, y: 20 },
-    animate: { opacity: 1, y: 0 },
-    exit: { opacity: 0, y: -20 },
-  };
 
   return (
     <div className="flex flex-col h-full">

@@ -7,11 +7,9 @@ import MainInput from "@/app/components/MainInput";
 import { Button } from "./ui/button";
 import { Check, Copy } from "lucide-react";
 
-interface ChatInterfaceV2Props {
-  initialQuery?: string;
-}
 
-export function ChatInterfaceV2({ initialQuery }: ChatInterfaceV2Props) {
+
+export function ChatInterfaceV2({ initialQuery }: { initialQuery: string }) {
   const {
     messages,
     inputValue,
@@ -20,7 +18,7 @@ export function ChatInterfaceV2({ initialQuery }: ChatInterfaceV2Props) {
     promptText,
     isFirstMessage,
     sendMessage,  
-  } = useChat({ initialQuery });
+  } = useChat();
   const messagesEndRef = useRef<HTMLDivElement>(null);
 
   const [isCopied, setIsCopied] = useState(false);
