@@ -58,7 +58,6 @@ export const useChat = (options?: UseChatOptions) => {
     };
 
     setMessages((prev) => [...prev, userMessage, botMessage]);
-    setInputValue("");
     router.replace("/");
     setIsLoading(true);
 
@@ -112,26 +111,6 @@ export const useChat = (options?: UseChatOptions) => {
     fetchPromptText();
   }, []);
 
-  const updateUrlWithQuery = useCallback((query: string) => {
-    if (query.trim()) {
-      const encodedQuery = encodeURIComponent(query);
-      router.replace(`/?query=${encodedQuery}`);
-    } else {
-      router.replace("/");
-    }
-  }, [router]);
-
-  const setInputValueWithUrl = useCallback((value: string) => {
-    setInputValue(value);
-    updateUrlWithQuery(value);
-  }, [updateUrlWithQuery]);
-
-  useEffect(() => {
-    if (options?.initialQuery && options.initialQuery.trim() && isFirstMessage) {
-      setInputValueWithUrl(options.initialQuery);
-    }
-  }, [options?.initialQuery, isFirstMessage, setInputValueWithUrl]);
-
   useEffect(() => {
     return () => {
       if (cleanupRef.current) {
@@ -143,7 +122,7 @@ export const useChat = (options?: UseChatOptions) => {
   return {
     messages,
     inputValue,
-    setInputValue: setInputValueWithUrl,
+    setInputValue,
     isLoading,
     promptText,
     isFirstMessage,

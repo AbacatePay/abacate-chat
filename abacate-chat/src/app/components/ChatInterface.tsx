@@ -19,7 +19,6 @@ export const ChatInterface = () => {
     sendMessage,
   } = useChat();
 
-  const scrollAreaRef = useRef<HTMLDivElement>(null);
   const textareaRef = useRef<HTMLTextAreaElement>(null);
   const messagesEndRef = useRef<HTMLDivElement>(null);
   const [isCopied, setIsCopied] = useState(false);

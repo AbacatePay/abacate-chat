@@ -1,4 +1,3 @@
-import TextArea from "@/app/components/MainInput";
 import ButtonsLanguageSelect from "@/app/components/ButtonsLanguageSelect";
 import { useRef, useState } from "react";
 import { InitialChat } from "./InitialChat";
@@ -20,7 +19,7 @@ export function ChatInterfaceV2({ initialQuery }: ChatInterfaceV2Props) {
     isLoading,
     promptText,
     isFirstMessage,
-    sendMessage,
+    sendMessage,  
   } = useChat({ initialQuery });
   const messagesEndRef = useRef<HTMLDivElement>(null);
 
@@ -75,6 +74,7 @@ export function ChatInterfaceV2({ initialQuery }: ChatInterfaceV2Props) {
           onChange={setInputValue}
           onSubmit={sendMessage}
           isLoading={false}
+          initialValue={initialQuery} 
         />
         <ButtonsLanguageSelect onSelect={handleLanguageSelect} />
         {lovablePrompt()}
