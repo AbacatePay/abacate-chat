@@ -1,4 +1,3 @@
-import TextArea from "@/app/components/MainInput";
 import ButtonsLanguageSelect from "@/app/components/ButtonsLanguageSelect";
 import { useRef, useState } from "react";
 import { InitialChat } from "./InitialChat";
@@ -8,11 +7,9 @@ import MainInput from "@/app/components/MainInput";
 import { Button } from "./ui/button";
 import { Check, Copy } from "lucide-react";
 
-/**
- * Componente que renderiza tela principal e chat
- * @returns
- */
-export function ChatInterfaceV2() {
+
+
+export function ChatInterfaceV2({ initialQuery }: { initialQuery: string }) {
   const {
     messages,
     inputValue,
@@ -20,7 +17,7 @@ export function ChatInterfaceV2() {
     isLoading,
     promptText,
     isFirstMessage,
-    sendMessage,
+    sendMessage,  
   } = useChat();
   const messagesEndRef = useRef<HTMLDivElement>(null);
 
@@ -75,6 +72,7 @@ export function ChatInterfaceV2() {
           onChange={setInputValue}
           onSubmit={sendMessage}
           isLoading={false}
+          initialValue={initialQuery} 
         />
         <ButtonsLanguageSelect onSelect={handleLanguageSelect} />
         {lovablePrompt()}
