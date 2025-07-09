@@ -94,21 +94,6 @@ export const useChat = () => {
   };
 
   useEffect(() => {
-    const fetchPromptText = async () => {
-      try {
-        const response = await fetch("/lovable.txt");
-        const text = await response.text();
-        setPromptText(text);
-      } catch (error) {
-        console.error("Failed to fetch prompt:", error);
-        setPromptText("Error loading prompt");
-      }
-    };
-
-    fetchPromptText();
-  }, []);
-
-  useEffect(() => {
     return () => {
       if (cleanupRef.current) {
         cleanupRef.current();

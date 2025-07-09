@@ -1,4 +1,4 @@
-import ButtonsLanguageSelect from "@/app/components/ButtonsLanguageSelect";
+import ButtonsLanguageSelect from "@/app/components/languageSelect/ButtonsLanguageSelect";
 import { useRef, useState } from "react";
 import { InitialChat } from "./InitialChat";
 import { useChat } from "../hooks/use-chat";
@@ -75,7 +75,7 @@ export function ChatInterfaceV2({ initialQuery }: { initialQuery: string }) {
           initialValue={initialQuery} 
         />
         <ButtonsLanguageSelect onSelect={handleLanguageSelect} />
-        {lovablePrompt()}
+      
       </div>
     );
   };
