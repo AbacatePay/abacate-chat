@@ -71,7 +71,7 @@ export default function MainInput({
         ref={textareaRef}
         onChange={handleTextareaChange}
         placeholder="Quero integrar a abacate com..."
-        className="w-full h-full resize-none text-gray-dark text-base font-normal placeholder-gray-placeholder focus:outline-none"
+        className="w-full h-full resize-none font-color text-base font-normal placeholder-gray-placeholder focus:outline-none"
         onKeyDown={handleKeyPress}
         value={initialValue || value}
       />
