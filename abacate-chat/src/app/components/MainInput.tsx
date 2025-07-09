@@ -25,7 +25,8 @@ export default function MainInput({
   const updateUrlWithQuery = useCallback((queryValue: string) => {
     const params = new URLSearchParams(searchParams.toString());
     if (queryValue.trim().length >= 3) {
-      params.set('query', encodeURIComponent(queryValue));
+      const limitedValue = queryValue.slice(0, 200);
+      params.set('query', encodeURIComponent(limitedValue));
     } else {
       params.delete('query');
     }
@@ -71,7 +72,7 @@ export default function MainInput({
         ref={textareaRef}
         onChange={handleTextareaChange}
         placeholder="Quero integrar a abacate com..."
-        className="w-full h-full resize-none text-gray-dark text-base font-normal placeholder-gray-placeholder focus:outline-none"
+        className="w-full h-full resize-none text-custom text-base font-normal placeholder-gray-placeholder focus:outline-none"
         onKeyDown={handleKeyPress}
         value={initialValue || value}
       />
