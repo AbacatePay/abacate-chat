@@ -24,22 +24,27 @@ export default function MainInput({
 
   const updateUrlWithQuery = useCallback((queryValue: string) => {
     const params = new URLSearchParams(searchParams.toString());
-    if (queryValue.trim().length >= 3) {
-      const limitedValue = queryValue.slice(0, 200);
-      params.set('query', encodeURIComponent(limitedValue));
+    if (queryValue.trim().length >= 3 && queryValue.trim().length <= 200) {
+      params.set('query', encodeURIComponent(queryValue));
     } else {
       params.delete('query');
     }
-    
+
     const newUrl = params.toString() 
       ? `${window.location.pathname}?${params.toString()}`
       : window.location.pathname;
-    
+
     router.replace(newUrl);
   }, [router, searchParams]);
 
+  useEffect(() => {
+    if (value) {
+      updateUrlWithQuery(value);
+    }
+  }, [value, updateUrlWithQuery]);
+
   const handleTextareaChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
-    const newValue = e.target.value;
+ const newValue = e.target.value;
     onChange(newValue);
     updateUrlWithQuery(newValue);
   };
@@ -47,12 +52,12 @@ export default function MainInput({
   const handleKeyPress = (e: React.KeyboardEvent) => {
     if (e.key === "Enter" && !e.shiftKey) {
       e.preventDefault();
-      onSubmit(initialValue || value);
+      onSubmit(value);
     }
   };
 
   const onPressSubmitButton = () => {
-    onSubmit(initialValue || value);
+    onSubmit(value);
   };
 
   return (
@@ -74,12 +79,12 @@ export default function MainInput({
         placeholder="Quero integrar a abacate com..."
         className="w-full h-full resize-none text-custom text-base font-normal placeholder-gray-placeholder focus:outline-none"
         onKeyDown={handleKeyPress}
-        value={initialValue || value}
+        value={value}
       />
 
       <div className="flex flex-1 justify-end items-center">
         <button
-          disabled={isLoading || (value.length === 0 && !initialValue)}
+          disabled={isLoading || value.length === 0}
           onClick={onPressSubmitButton}
           className="cursor-pointer disabled:opacity-50 disabled:cursor-auto bg-green-abc rounded-full"
         >
