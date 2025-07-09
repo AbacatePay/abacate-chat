@@ -25,7 +25,8 @@ export default function MainInput({
   const updateUrlWithQuery = useCallback((queryValue: string) => {
     const params = new URLSearchParams(searchParams.toString());
     if (queryValue.trim().length >= 3) {
-      params.set('query', encodeURIComponent(queryValue));
+      const limitedValue = queryValue.slice(0, 200);
+      params.set('query', encodeURIComponent(limitedValue));
     } else {
       params.delete('query');
     }
