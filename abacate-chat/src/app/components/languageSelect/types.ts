@@ -872,21 +872,11 @@ Atualmente uma cobrança pode ser de duas formas:
 - \`MULTIPLE_PAYMENTS\` é uma cobrança que pode ser paga multiplas vezes e por múltiplas pessoas diferentes. **Ex:** utilização de um único link de pagamento para vender um produto para múltiplas pessoas.
   - Para cobranças \`MULTIPLE_PAYMENTS\` o usuário informará informações como CPF, nome e email na página do checkout.`,
 
- python : `
-Me ajude a integrar a AbacatePay usando Python
-`,
- javascript : `
-Me ajude a integrar a AbacatePay usando Javascript
-`,
-php : `
-Me ajude a integrar a AbacatePay usando PHP
-`,
-ruby : `
-Me ajude a integrar a AbacatePay usando Ruby
-`,
-java: `
-Me ajude a integrar a AbacatePay usando Java
-`
+python : `Me ajude a integrar a AbacatePay usando Python`,
+ javascript : `Me ajude a integrar a AbacatePay usando Javascript`,
+php : `Me ajude a integrar a AbacatePay usando PHP`,
+ruby : `Me ajude a integrar a AbacatePay usando Ruby`,
+java: `Me ajude a integrar a AbacatePay usando Java`
 }
 
 export const languages = [
