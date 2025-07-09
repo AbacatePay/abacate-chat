@@ -27,7 +27,6 @@ export const ChatInterface = () => {
     messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
   };
 
-  // Scroll on new messages
   useEffect(() => {
     scrollToBottom();
   }, [messages]);

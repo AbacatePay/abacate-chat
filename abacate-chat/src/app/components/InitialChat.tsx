@@ -1,13 +1,16 @@
 import Image from "next/image";
 import MainInput, { MainInputProps } from "./MainInput";
 
-type InitialChatProps = MainInputProps & {};
+type InitialChatProps = MainInputProps & {
+  initialValue?: string;
+};
 
 export function InitialChat({
   value,
   onChange,
   onSubmit,
   isLoading,
+  initialValue,
 }: InitialChatProps) {
   return (
     <div className="flex flex-col gap-5 items-center">
@@ -22,6 +25,7 @@ export function InitialChat({
           onChange={onChange}
           onSubmit={onSubmit}
           isLoading={isLoading}
+          initialValue={initialValue}
         />
       </div>
     </div>

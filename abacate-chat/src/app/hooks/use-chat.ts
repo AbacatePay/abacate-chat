@@ -1,10 +1,12 @@
 import { useState, useRef, useCallback, useEffect } from "react";
+import { useRouter } from "next/navigation";
 import {
   ChatMessage as ChatMessageType,
   StreamChunk,
   chatApiService,
 } from "@/app/services/chatApi";
 import { useToast } from "@/app/hooks/use-toast";
+
 
 export const useChat = () => {
   const [messages, setMessages] = useState<ChatMessageType[]>([]);
@@ -16,6 +18,8 @@ export const useChat = () => {
 
   const cleanupRef = useRef<(() => void) | null>(null);
   const { toast } = useToast();
+  const router = useRouter();
+
 
   const handleChunk = useCallback((chunk: StreamChunk) => {
     if (chunk.type === "threadId" && chunk.threadId) {
@@ -31,7 +35,7 @@ export const useChat = () => {
 
   const sendMessage = async (message: string) => {
     if (!message.trim() || isLoading) return;
-
+    setInputValue("");
     if (isFirstMessage) {
       setIsFirstMessage(false);
     }
@@ -51,7 +55,7 @@ export const useChat = () => {
     };
 
     setMessages((prev) => [...prev, userMessage, botMessage]);
-    setInputValue("");
+    router.replace("/");
     setIsLoading(true);
 
     try {
@@ -89,7 +93,6 @@ export const useChat = () => {
     }
   };
 
-  // Load prompt text
   useEffect(() => {
     const fetchPromptText = async () => {
       try {
@@ -105,7 +108,6 @@ export const useChat = () => {
     fetchPromptText();
   }, []);
 
-  // Cleanup on unmount
   useEffect(() => {
     return () => {
       if (cleanupRef.current) {

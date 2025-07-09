@@ -1,12 +1,14 @@
 import IconSubmit from "@icons/submite";
 import { Loader2 } from "lucide-react";
-import React, { useRef } from "react";
+import React, { useRef, useEffect, useCallback, useState } from "react";
+import { useRouter, useSearchParams } from "next/navigation";
 
 export interface MainInputProps {
   value: string;
   onChange: (s: string) => void;
   onSubmit: (s: string) => void;
   isLoading: boolean;
+  initialValue?: string;
 }
 
 export default function MainInput({
@@ -14,22 +16,42 @@ export default function MainInput({
   onChange,
   onSubmit,
   isLoading,
+  initialValue,
 }: MainInputProps) {
   const textareaRef = useRef<HTMLTextAreaElement>(null);
+  const router = useRouter();
+  const searchParams = useSearchParams();
+
+  const updateUrlWithQuery = useCallback((queryValue: string) => {
+    const params = new URLSearchParams(searchParams.toString());
+    if (queryValue.trim().length >= 3) {
+      params.set('query', encodeURIComponent(queryValue));
+    } else {
+      params.delete('query');
+    }
+    
+    const newUrl = params.toString() 
+      ? `${window.location.pathname}?${params.toString()}`
+      : window.location.pathname;
+    
+    router.replace(newUrl);
+  }, [router, searchParams]);
 
   const handleTextareaChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
-    onChange(e.target.value);
+    const newValue = e.target.value;
+    onChange(newValue);
+    updateUrlWithQuery(newValue);
   };
 
   const handleKeyPress = (e: React.KeyboardEvent) => {
     if (e.key === "Enter" && !e.shiftKey) {
       e.preventDefault();
-      onSubmit(value);
+      onSubmit(initialValue || value);
     }
   };
 
   const onPressSubmitButton = () => {
-    onSubmit(value);
+    onSubmit(initialValue || value);
   };
 
   return (
@@ -44,18 +66,19 @@ export default function MainInput({
         z-1
       "
     >
+      
       <textarea
         ref={textareaRef}
-        value={value}
         onChange={handleTextareaChange}
         placeholder="Quero integrar a abacate com..."
         className="w-full h-full resize-none text-gray-dark text-base font-normal placeholder-gray-placeholder focus:outline-none"
         onKeyDown={handleKeyPress}
+        value={initialValue || value}
       />
 
-      <div className="flex flex-1 justify-end">
+      <div className="flex flex-1 justify-end items-center">
         <button
-          disabled={isLoading || value.length == 0}
+          disabled={isLoading || (value.length === 0 && !initialValue)}
           onClick={onPressSubmitButton}
           className="cursor-pointer disabled:opacity-50 disabled:cursor-auto bg-green-abc rounded-full"
         >
