@@ -1,6 +1,6 @@
-import IconSubmit from "@icons/submite";
+import IconSubmit from "@icons/submit";
 import { Loader2 } from "lucide-react";
-import React, { useRef, useEffect, useCallback, useState } from "react";
+import React, { useRef, useEffect, useCallback } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 
 export interface MainInputProps {
@@ -16,7 +16,6 @@ export default function MainInput({
   onChange,
   onSubmit,
   isLoading,
-  initialValue,
 }: MainInputProps) {
   const textareaRef = useRef<HTMLTextAreaElement>(null);
   const router = useRouter();
