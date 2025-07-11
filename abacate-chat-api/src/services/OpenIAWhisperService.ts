@@ -54,45 +54,12 @@ export class OpenIAWhisperService implements ITranscribeAudioModel {
       throw new Error("Invalid output format. Use 'ogg' or 'mp3'");
     }
 
-    // For files smaller than 10MB, use stream processing
-    if (inputBuffer.length < 10 * 1024 * 1024) {
-      return this.optimizeAudioBufferWithStream(inputBuffer, outputFormat);
+    // For files larger than 10MB, error out to prevent performance issues.
+    if (inputBuffer.length > 10 * 1024 * 1024) {
+      throw new Error("Input buffer size exceeds 10MB limit.");
     }
 
-    // For larger files, use temporary files
-    return this.optimizeAudioBufferWithTempFile(inputBuffer, outputFormat);
-  }
-
-  async optimizeAudioBufferWithTempFile(
-    inputBuffer: Buffer,
-    outputFormat = "ogg"
-  ): Promise<Buffer> {
-    const inputTmp = await tmp.file({ postfix: ".wav" });
-    const outputTmp = await tmp.file({ postfix: `.${outputFormat}` });
-
-    try {
-      await fs.writeFile(inputTmp.path, inputBuffer);
-
-      await new Promise<void>((resolve, reject) => {
-        ffmpeg(inputTmp.path)
-          .audioFilters("silenceremove=1:0:-50dB")
-          .audioFrequency(16000)
-          .format(outputFormat)
-          .output(outputTmp.path)
-          .on("end", (_stdout: string | null, _stderr: string | null) =>
-            resolve()
-          )
-          .on("error", reject)
-          .run();
-      });
-
-      const outputBuffer = await fs.readFile(outputTmp.path);
-
-      return outputBuffer;
-    } finally {
-      await inputTmp.cleanup();
-      await outputTmp.cleanup();
-    }
+    return this.optimizeAudioBufferWithStream(inputBuffer, outputFormat);
   }
 
   private async optimizeAudioBufferWithStream(
