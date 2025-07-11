@@ -3,6 +3,7 @@ import { Check, Copy, Loader2 } from "lucide-react";
 import { useState } from "react";
 import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
+import { Button } from "./ui/button";
 
 interface MessageContentProps {
   content: string | null;
@@ -24,16 +25,16 @@ const CopyablePre = (props: any) => {
   return (
     <div style={{ position: "relative" }}>
       <pre {...props} />
-      <button
+      <Button
         onClick={handleCopy}
         aria-label={isCopied ? 'Copiado' : 'Copiar código'}
         type="button"
         role="button"
-        className="text-sm z-10 absolute top-2 right-2 rounded-sm flex items-center justify-center gap-2 px-2 py-1 hover:cursor-pointer bg-white hover:bg-gray-100"
+        className="text-sm text-gray-100 z-10 absolute top-2 right-2 rounded-sm flex items-center justify-center gap-2 px-2 py-1 hover:cursor-pointer"
       >
         {isCopied ? <Check /> : <Copy />}
         <span>{isCopied ? 'Copiado' : 'Copiar'}</span>
-      </button>
+      </Button>
     </div>
   );
 };
