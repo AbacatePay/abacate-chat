@@ -1,6 +1,8 @@
+
 import type { Metadata } from "next";
 import { Fustat } from "next/font/google";
 import "./globals.css";
+import { ThemeProvider } from "./components/theme/theme-provider";
 
 const fustat = Fustat({ subsets: ["latin"] });
 
@@ -28,8 +30,10 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
-      <body className={`${fustat.className} antialiased`}>{children}</body>
+    <html lang="pt-BR">
+      <body className={`${fustat.className} antialiased`}>
+        <ThemeProvider>{children}</ThemeProvider>
+      </body>
     </html>
   );
 }

@@ -1,5 +1,5 @@
 @import "tailwindcss";
-@custom-variant dark (&:where(.dark, .dark *));
+
 @theme abacate-chat {
   /*Color abacate*/
   --color-abacate-100: #f0f9f0;
@@ -29,117 +29,111 @@
   --color-code-dark: #181818;
 }
 
-
 /* ---------------------------------------------------------------------------- */
 /* Design System: CSS Variables for Light and Dark Modes */
 /* ---------------------------------------------------------------------------- */
-@layer theme {
-  :root {
-    --background: #ffffff;
-    --foreground: #000000;
+:root {
+  --background: #ffffff;
+  --foreground: #000000;
 
-    --card: #ffffff;
-    --card-foreground: #000000;
+  --card: #ffffff;
+  --card-foreground: #000000;
 
-    --primary: #000000;
-    --primary-foreground: #ffffff;
+  --primary: #000000;
+  --primary-foreground: #ffffff;
 
-    --secondary: #dcf2dc;
-    --secondary-foreground: #4a6238;
+  --secondary: #dcf2dc;
+  --secondary-foreground: #4a6238;
 
-    --muted: #f5f5f5;
-    --muted-foreground: #737373;
+  --muted: #f5f5f5;
+  --muted-foreground: #737373;
 
-    --accent: #f5f5f5;
-    --accent-foreground: #1a1a1a;
+  --accent: #f5f5f5;
+  --accent-foreground: #1a1a1a;
 
-    --destructive: #f14444;
-    --destructive-foreground: #ffffff;
+  --destructive: #f14444;
+  --destructive-foreground: #ffffff;
 
-    --border: #e6e6e6;
-    --input: #e6e6e6;
-    --ring: #4dd47e;
+  --border: #e6e6e6;
+  --input: #e6e6e6;
+  --ring: #4dd47e;
 
-    --radius: 0.75rem;
+  --radius: 0.75rem;
 
-    --sidebar-background: #ffffff;
-    --sidebar-foreground: #000000;
-    --sidebar-primary: #4dd47e;
-    --sidebar-primary-foreground: #ffffff;
-    --sidebar-accent: #f5f5f5;
-    --sidebar-accent-foreground: #1a1a1a;
-    --sidebar-border: #e6e6e6;
-    --sidebar-ring: #4dd47e;
+  --sidebar-background: #ffffff;
+  --sidebar-foreground: #000000;
+  --sidebar-primary: #4dd47e;
+  --sidebar-primary-foreground: #ffffff;
+  --sidebar-accent: #f5f5f5;
+  --sidebar-accent-foreground: #1a1a1a;
+  --sidebar-border: #e6e6e6;
+  --sidebar-ring: #4dd47e;
 
-    /* Chatbot colors */
-    --chat-background: #ffffff;
-    --user-message: #9EEA6C;
-    --user-message-foreground: #000000;
-    --bot-message: #f5f5f5;
-    --bot-message-foreground: #000000;
-    --chat-input: #ffffff;
-    --chat-input-border: #e6e6e6;
-  }
+  /* Chatbot colors */
+  --chat-background: #ffffff;
+  --user-message: #9EEA6C;
+  --user-message-foreground: #000000;
+  --bot-message: #f5f5f5;
+  --bot-message-foreground: #000000;
+  --chat-input: #ffffff;
+  --chat-input-border: #e6e6e6;
+}
 
 .dark {
-    --background: hsl(146 14.9% 9.2%);
-    --foreground: #001a00;
+  --background: #0f0f0f;
+  --foreground: #ffffff;
 
-    --card: #141414;
-    --card-foreground: #f2f2f2;
+  --card: #141414;
+  --card-foreground: #f2f2f2;
 
-    --primary: #FFFFFF;
-    --primary-foreground: #ffffff;
+  --primary: #ffffff;
+  --primary-foreground: #000000;
 
-    --secondary: #45652a;
-    --secondary-foreground: #f4f7f2;
+  --secondary: #45652a;
+  --secondary-foreground: #f4f7f2;
 
-    --muted: #262626;
-    --muted-foreground: #a6a6a6;
+  --muted: #262626;
+  --muted-foreground: #a6a6a6;
 
-    --accent: #262626;
-    --accent-foreground: #f2f2f2;
+  --accent: #262626;
+  --accent-foreground: #f2f2f2;
 
-    --destructive: #f14444;
-    --destructive-foreground: #ffffff;
+  --destructive: #f14444;
+  --destructive-foreground: #ffffff;
 
-    --border: #333333;
-    --input: #333333;
-    --ring: #4dd47e;
+  --border: #333333;
+  --input: #333333;
+  --ring: #4dd47e;
 
-    --sidebar-background: #141414;
-    --sidebar-foreground: #f2f2f2;
-    --sidebar-primary: #4dd47e;
-    --sidebar-primary-foreground: #ffffff;
-    --sidebar-accent: #262626;
-    --sidebar-accent-foreground: #f2f2f2;
-    --sidebar-border: #333333;
-    --sidebar-ring: #4dd47e;
+  --sidebar-background: #141414;
+  --sidebar-foreground: #f2f2f2;
+  --sidebar-primary: #4dd47e;
+  --sidebar-primary-foreground: #ffffff;
+  --sidebar-accent: #262626;
+  --sidebar-accent-foreground: #f2f2f2;
+  --sidebar-border: #333333;
+  --sidebar-ring: #4dd47e;
 
-    /* Chatbot colors for dark mode */
-    --chat-background: #0f0f0f;
-    --user-message: #9EEA6C;
-    --user-message-foreground: #000000;
-    --bot-message: #1f1f1f;
-    --bot-message-foreground: #f2f2f2;
-    --chat-input: #141414;
-    --chat-input-border: #333333;
-  }
+  /* Chatbot colors for dark mode */
+  --chat-background: #0f0f0f;
+  --user-message: #9EEA6C;
+  --user-message-foreground: #000000;
+  --bot-message: #1f1f1f;
+  --bot-message-foreground: #f2f2f2;
+  --chat-input: #141414;
+  --chat-input-border: #333333;
 }
 
 body {
   background-color: var(--background);
   color: var(--primary);
-
+  transition: background-color 0.3s ease, color 0.3s ease;
 }
-
-
 
 /* ---------------------------------------------------------------------------- */
 /* Custom Utilities for Chatbot and UI */
 /* ---------------------------------------------------------------------------- */
 @layer utilities {
- 
   .user-message-bg {
     background-color: var(--user-message);
     color: var(--user-message-foreground);
@@ -159,9 +153,11 @@ body {
       linear-gradient(to right, #FF5858, #B345D5, #FF8B28, #D9A1F1);
     background-origin: border-box;
   }
+
+  .placeholder-primary {
+    color: var(--primary);
+  }
 }
-
-
 
 /* ---------------------------------------------------------------------------- */
 /* Optional: Add custom animations or radius if needed */

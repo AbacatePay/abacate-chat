@@ -61,17 +61,19 @@ export default function MainInput({
 
   return (
     <div
-      className="
-        flex flex-col w-full max-w-3xl rounded-2xl h-full
-        bg-background
-        focus-within:ring-1 focus-within:ring-green-abc
-        focus-within:shadow-[0_0_16px] focus-within:shadow-green-abc
-        focus-within:outline-none
-        px-4 pt-5 pb-3
-        z-1
-      "
-    >
-      
+    className="
+      flex flex-col w-full max-w-3xl rounded-2xl h-full
+      bg-background
+      focus-within:ring-1 focus-within:ring-green-abc
+      focus-within:shadow-[0_0_16px] focus-within:shadow-green-abc
+      focus-within:outline-none
+      border-1 border-primary hover:border-green-abc hover:shadow-[0_0_16px] hover:shadow-green-abc 
+      focus-within:border-green-abc
+      transition-all duration-300
+      px-4 pt-5 pb-3
+      z-1
+    "
+  >
       <textarea
         ref={textareaRef}
         onChange={handleTextareaChange}

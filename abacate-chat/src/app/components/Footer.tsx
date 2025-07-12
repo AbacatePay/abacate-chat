@@ -42,7 +42,7 @@ export default function Footer() {
           AbacatePay @ {new Date().getFullYear()}
         </p>
       </div>
-      <ul className="flex items-center gap-4 mt-1 [&>li:not(:first-child)]:border-l-2 [&>li:not(:first-child)]:border-gray-border [&>li:not(:first-child)]:pl-4">
+      <ul className="flex items-center gap-4 mt-1 [&>li:not(:first-child)]:border-l-2 [&>li:not(:first-child)]:border-primary [&>li:not(:first-child)]:pl-4">
         <li className="font-semibold text-4 text-right align-middle text-primary">
           <Link href="#">Termos e condições</Link>
         </li>
