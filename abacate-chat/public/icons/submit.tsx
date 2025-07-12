@@ -1,4 +1,4 @@
-export default function IconSubmit() {
+export default function IconSubmit(props: { color?: string }) {
   return (
     <svg
       width="36"
@@ -7,12 +7,12 @@ export default function IconSubmit() {
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
     >
-      <rect y="0.5" width="36" height="36" rx="18" fill="#9EEA6C" />
+      <rect y="0.5" width="36" height="36" rx="18" fill={props.color || "#9EEA6C"} />
       <path
         fillRule="evenodd"
         clipRule="evenodd"
         d="M23.6499 18.9419C23.4059 19.186 23.0101 19.186 22.7661 18.9419L18.833 15.0089V23.9167C18.833 24.2618 18.5532 24.5417 18.208 24.5417C17.8628 24.5417 17.583 24.2618 17.583 23.9167V15.0089L13.6499 18.9419C13.4059 19.186 13.0101 19.186 12.7661 18.9419C12.522 18.6979 12.522 18.3021 12.7661 18.0581L17.7661 13.0581C18.0101 12.814 18.4059 12.814 18.6499 13.0581L23.6499 18.0581C23.894 18.3021 23.894 18.6979 23.6499 18.9419Z"
-        fill="#204749"
+        fill={props.color || "#204749"}
       />
     </svg>
   );
