@@ -3,6 +3,7 @@ import type { Metadata } from "next";
 import { Fustat } from "next/font/google";
 import "./globals.css";
 import { ThemeProvider } from "./components/theme/theme-provider";
+import { Suspense } from "react";
 
 const fustat = Fustat({ subsets: ["latin"] });
 
@@ -32,7 +33,13 @@ export default function RootLayout({
   return (
     <html lang="pt-BR">
       <body className={`${fustat.className} antialiased`}>
-        <ThemeProvider>{children}</ThemeProvider>
+        <ThemeProvider>
+          <Suspense fallback={<div className="flex justify-center items-center h-full">
+          <div className="animate-spin rounded-full h-32 w-32 border-t-2 border-b-2 border-gray-900"></div>
+        </div>}>
+          {children}
+          </Suspense>
+        </ThemeProvider>
       </body>
     </html>
   );
