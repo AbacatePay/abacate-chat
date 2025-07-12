@@ -1,5 +1,5 @@
 import ButtonsLanguageSelect from "@/app/components/languageSelect/ButtonsLanguageSelect";
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { InitialChat } from "./InitialChat";
 import { useChat } from "../hooks/use-chat";
 import { ChatMessage } from "./ChatMessage";
@@ -36,6 +36,14 @@ export function ChatInterfaceV2({ initialQuery }: { initialQuery: string }) {
       console.error("Failed to copy text: ", err);
     }
   };
+
+  useEffect(() => {
+    if (initialQuery) {
+      setInputValue(initialQuery);
+    }
+  }, [initialQuery, setInputValue]);
+
+
 
   const lovablePrompt = () => {
     if (isFirstMessage) {
