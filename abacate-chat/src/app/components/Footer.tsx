@@ -44,7 +44,7 @@ export default function Footer() {
       </div>
       <ul className="flex items-center gap-4 mt-1 [&>li:not(:first-child)]:border-l-2 [&>li:not(:first-child)]:border-primary [&>li:not(:first-child)]:pl-4">
         <li className="font-semibold text-4 text-right align-middle text-primary">
-          <Link href="#">Termos e condições</Link>
+          <Link href="https://www.abacatepay.com/termos">Termos e condições</Link>
         </li>
         <li className="font-semibold text-4 text-right align-middle text-primary">
           <Link href="#">Privacidade</Link>
