@@ -13,24 +13,24 @@ export const ChatMessage = ({ message }: ChatMessageProps) => {
 
   return (
     <div
-      className={`flex gap-3 p-4 ${isUser ? "flex-row-reverse" : "flex-row"}`}
+      className={`flex gap-3 p-4 space-y-2 ${isUser ? "flex-row-reverse" : "flex-row"}`}
     >
-      <Avatar className="w-8 h-8 flex-shrink-0 bg-green-100">
-        <AvatarFallback className={isUser ? "bg-green-abc" : "bg-secondary"}>
-          {isUser ? <User className="w-4 h-4 dark-font-color" /> : <ChatLogo />}
+      <Avatar className="w-8 h-8 flex-shrink-0 bg-[var(--user-message)] ">
+        <AvatarFallback className={isUser ? "bg-[var(--secondary)]" : "bg-[var(--bot-message)]"}>
+          {isUser ? <User className="w-4 h-4 text-primary" /> : <ChatLogo />}
         </AvatarFallback>
       </Avatar>
 
       <div
-        className={`flex flex-col max-w-[80%] ${
+        className={`flex flex-col max-w-[80%]  ${
           isUser ? "items-end" : "items-start"
         }`}
       >
         <div
-          className={`px-2 py-2 rounded-2xl shadow-sm w-full ${
+          className={`p-4 rounded-2xl shadow-sm w-full  ${
             isUser
-              ? "bg-green-abc rounded-br-md dark-font-color"
-              : "bot-message-bg border rounded-bl-md"
+              ? "bg-[var(--secondary)] rounded-br-md dark-font-color"
+              : "bg-[var(--bot-message)] shadow-md rounded-bl-md"
           }`}
         >
           <MessageContent content={message.content} />

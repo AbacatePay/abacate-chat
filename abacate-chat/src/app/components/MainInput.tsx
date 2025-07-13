@@ -1,6 +1,6 @@
-import IconSubmit from "@icons/submite";
+import IconSubmit from "@icons/submit";
 import { Loader2 } from "lucide-react";
-import React, { useRef, useEffect, useCallback, useState } from "react";
+import React, { useRef, useEffect, useCallback } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 
 export interface MainInputProps {
@@ -16,7 +16,6 @@ export default function MainInput({
   onChange,
   onSubmit,
   isLoading,
-  initialValue,
 }: MainInputProps) {
   const textareaRef = useRef<HTMLTextAreaElement>(null);
   const router = useRouter();
@@ -61,23 +60,26 @@ export default function MainInput({
   };
 
   return (
+   
     <div
-      className="
-        flex flex-col w-full max-w-3xl rounded-2xl h-full
-        bg-alt-custom
-        focus-within:ring-1 focus-within:ring-green-abc
-        focus-within:shadow-[0_0_16px] focus-within:shadow-green-abc
-        focus-within:outline-none
-        px-4 pt-5 pb-3
-        z-1
-      "
-    >
-      
+    className="
+      flex flex-col w-full max-w-3xl rounded-2xl h-full
+      bg-background
+      focus-within:ring-1 focus-within:ring-green-abc
+      focus-within:shadow-[0_0_16px] focus-within:shadow-green-abc
+      focus-within:outline-none
+      border-1 border-primary hover:border-green-abc hover:shadow-[0_0_16px] hover:shadow-green-abc 
+      focus-within:border-green-abc
+      transition-all duration-300
+      px-4 pt-5 pb-3
+      z-1
+    "
+  >
       <textarea
         ref={textareaRef}
         onChange={handleTextareaChange}
         placeholder="Quero integrar a abacate com..."
-        className="w-full h-full resize-none text-custom text-base font-normal placeholder-gray-placeholder focus:outline-none"
+        className="w-full h-full resize-none text-primary text-base font-normal placeholder-primary focus:outline-none"
         onKeyDown={handleKeyPress}
         value={value}
       />

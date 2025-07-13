@@ -11,7 +11,7 @@ export default function ButtonsLanguageSelect({
         <button
           key={code}
           onClick={() => onSelect(prompt)}
-          className="rounded-full border-custom border-1 text-custom px-4 py-2 hover:bg-abacate-800 hover:text-custom font-bold flex items-center gap-2 cursor-pointer"
+          className="rounded-full border-primary border text-primary px-4 py-2 hover:bg-[var(--secondary)] hover:text-hover-secondary-foreground font-bold flex items-center gap-2 cursor-pointer transition-colors duration-200"
         >
           <Icon />
           {label}
