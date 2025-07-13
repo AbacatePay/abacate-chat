@@ -14,7 +14,7 @@ export function ToogleTheme() {
     <button 
       onClick={toggleTheme} 
       aria-label="Toggle theme"
-      className="p-2 rounded hover:bg-accent transition-colors"
+      className="p-2 rounded hover:bg-accent transition-colors cursor-pointer"
     >
       {theme === 'dark' ? <SunIcon /> : <MoonIcon />}
     </button>
