@@ -11,12 +11,12 @@ interface ThemeContextType {
 const ThemeContext = createContext<ThemeContextType | undefined>(undefined);
 
 export function ThemeProvider({ children }: { children: React.ReactNode }) {
-  const [theme, setTheme] = useState<Theme>("light");
+  const [theme, setTheme] = useState<Theme | undefined>(undefined);
   const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
     setMounted(true);
-   const savedTheme = localStorage.getItem("theme") as Theme;
+    const savedTheme = localStorage.getItem("theme") as Theme;
     if (savedTheme) {
       setTheme(savedTheme);
     } else {
@@ -28,7 +28,6 @@ export function ThemeProvider({ children }: { children: React.ReactNode }) {
   useEffect(() => {
     if (!mounted) return;
     const body = document.body;
-    
     if (theme === "dark") {
       body.classList.add("dark");
     } else {
@@ -41,11 +40,13 @@ export function ThemeProvider({ children }: { children: React.ReactNode }) {
     setTheme(prev => prev === "light" ? "dark" : "light");
   };
 
+  if (!theme) {
+    return null;
+  }
+
   return (
     <ThemeContext.Provider value={{ theme, toggleTheme }}>
-      <div style={{ visibility: mounted ? 'visible' : 'hidden' }}>
-        {children}
-      </div>
+      {children}
     </ThemeContext.Provider>
   );
 }
