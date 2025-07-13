@@ -53,7 +53,7 @@ export function ChatInterfaceV2({ initialQuery }: { initialQuery: string }) {
           ))}
           <div ref={messagesEndRef} />
         </div>
-        <div className="relative z-10 h-35">
+        <div className="relative z-10 h-35 p-2">
           <MainInput
             value={inputValue}
             onChange={setInputValue}

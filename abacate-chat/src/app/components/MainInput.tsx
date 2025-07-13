@@ -60,6 +60,7 @@ export default function MainInput({
   };
 
   return (
+   
     <div
     className="
       flex flex-col w-full max-w-3xl rounded-2xl h-full

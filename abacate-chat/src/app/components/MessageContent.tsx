@@ -29,9 +29,9 @@ const CopyablePre = (props: any) => {
         aria-label={isCopied ? 'Copiado' : 'Copiar código'}
         type="button"
         role="button"
-        className="text-sm z-10 absolute top-2 right-2 rounded-sm flex text-black items-center justify-center gap-2 px-2 py-1 hover:cursor-pointer bg-white hover:bg-gray-100"
+        className="text-sm z-10 absolute top-2 right-2 rounded-sm flex text-black items-center justify-center gap-2 px-2  hover:cursor-pointer bg-white hover:bg-gray-100"
       >
-        {isCopied ? <Check /> : <Copy />}
+        {isCopied ? <Check width={16} height={16}/> : <Copy width={16} height={16}/>}
         <span>{isCopied ? 'Copiado' : 'Copiar'}</span>
       </button>
     </div>
@@ -46,7 +46,7 @@ export const MessageContent = ({ content }: MessageContentProps) => {
   }
 
   return (
-    <div className="text-sm font-normal leading-relaxed break-words overflow-hidden">
+    <div className="text-sm font-normal space-y-2 break-words overflow-hidden">
       <ReactMarkdown remarkPlugins={[remarkGfm]} components={{
         ...components,
         pre: CopyablePre,
