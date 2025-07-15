@@ -46,14 +46,14 @@ export function ChatInterfaceV2({ initialQuery }: { initialQuery: string }) {
 
   const existingMessagesComponent = () => {
     return (
-      <div className="flex flex-col h-full relative">
-        <div className="flex-1 overflow-y-auto [&::-webkit-scrollbar]:hidden">
+      <div className="flex flex-col h-full relative items-center justify-center ">
+        <div className="flex-1 overflow-y-auto [&::-webkit-scrollbar]:hidden w-full max-w-3xl">
           {messages.map((message) => (
             <ChatMessage key={message.id} message={message} />
           ))}
           <div ref={messagesEndRef} />
         </div>
-        <div className="relative z-10 h-35 p-2">
+        <div className="relative z-10 h-35 p-2 w-full max-w-3xl">
           <MainInput
             value={inputValue}
             onChange={setInputValue}
