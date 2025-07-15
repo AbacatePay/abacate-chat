@@ -64,12 +64,13 @@ export default function MainInput({
     <div
     className="
       flex flex-col w-full max-w-3xl rounded-2xl h-full
-      bg-background
+      bg-[var(--chat-input)] border-1 border-[var(--chat-input-border)]
+      border-1 border-primary 
+      hover:not-focus-within:border-green-abc hover:not-focus-within:shadow-[0_0_6px_theme(colors.green-abc)]
       focus-within:ring-1 focus-within:ring-green-abc
-      focus-within:shadow-[0_0_16px] focus-within:shadow-green-abc
-      focus-within:outline-none
-      border-1 border-primary hover:border-green-abc hover:shadow-[0_0_16px] hover:shadow-green-abc 
+      focus-within:shadow-[0_0_16px_theme(colors.green-abc)]
       focus-within:border-green-abc
+      focus-within:outline-none
       transition-all duration-300
       px-4 pt-5 pb-3
       z-1
@@ -79,7 +80,7 @@ export default function MainInput({
         ref={textareaRef}
         onChange={handleTextareaChange}
         placeholder="Quero integrar a abacate com..."
-        className="w-full h-full resize-none text-primary text-base font-normal placeholder-primary focus:outline-none"
+        className="w-full h-full resize-none text-primary text-base font-normal placeholder-primary focus:outline-none "
         onKeyDown={handleKeyPress}
         value={value}
       />

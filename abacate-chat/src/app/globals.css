@@ -42,7 +42,7 @@
   --primary: #000000;
   --primary-foreground: #ffffff;
 
-  --secondary: #dcf2dc;
+  --secondary: #b2ceb2;
   --secondary-foreground: #4a6238;
 
   --muted: #f5f5f5;
@@ -75,12 +75,12 @@
   --user-message-foreground: #000000;
   --bot-message: #f5f5f5;
   --bot-message-foreground: #000000;
-  --chat-input: #ffffff;
+  --chat-input: #eeeeee;
   --chat-input-border: #e6e6e6;
 }
 
 .dark {
-  --background: #0f130b;
+  --background: #1A1A19;
   --foreground: #ffffff;
 
   --card: #141414;
@@ -120,8 +120,8 @@
   --user-message-foreground: #000000;
   --bot-message: #1f1f1f;
   --bot-message-foreground: #f2f2f2;
-  --chat-input: #141414;
-  --chat-input-border: #333333;
+  --chat-input: #202020;
+  --chat-input-border: #252525;
 }
 
 body {

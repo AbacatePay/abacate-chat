@@ -36,13 +36,15 @@ export default function Footer() {
   ];
 
   return (
-    <footer className="flex flex-col items-center px-8 mt-2 w-full text-primary">
+    <footer className="flex flex-col md:flex-row items-center px-8 mt-2 w-full text-primary md:justify-between">
       <div>
         <p className="font-semibold text-4 text-right align-middle text-primary">
           AbacatePay @ {new Date().getFullYear()}
         </p>
       </div>
-      <ul className="flex items-center gap-4 mt-1 [&>li:not(:first-child)]:border-l-2 [&>li:not(:first-child)]:border-primary [&>li:not(:first-child)]:pl-4">
+      <div className="flex flex-col md:flex-row items-center gap-0 md:gap-4">
+        
+      <ul className="flex items-center gap-4 mt-1  md:[&>li:last-child]:border-r-2 md:[&>li:last-child]:border-primary md:[&>li:last-child]:pr-4 max-md:[&>li:not(:first-child)]:border-l-2 max-md:[&>li:not(:first-child)]:border-primary max-md:[&>li:not(:first-child)]:pl-4">
         <li className="font-semibold text-4 text-right align-middle text-primary">
           <Link href="https://www.abacatepay.com/termos" target="_blank" rel="noopener noreferrer">Termos e condições</Link>
         </li>
@@ -51,6 +53,7 @@ export default function Footer() {
         </li>
       </ul>
       <SocialIcons links={socialLinks} />
+      </div>
     </footer>
   );
 }

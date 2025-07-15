@@ -13,10 +13,12 @@ export function InitialChat({
 }: InitialChatProps) {
   return (
     <div className="flex flex-col gap-5 items-center">
+      <div>
       <h1
-        className="font-semibold text-2xl sm:text-3xl md:text-4xl leading-tight text-center text-primary">
-        Qual tech você quer usar para integrar a Abacate?
+        className="font-semibold text-2xl sm:text-3xl md:text-4xl leading-tight text-center text-primary md:whitespace-nowrap ">
+        Qual tech você quer usar para integrar a Abacate? 🥑
       </h1>
+      </div>
       <div className="h-40 w-full max-w-3xl flex flex-col justify-center items-center">
         <MainInput
           value={value}
