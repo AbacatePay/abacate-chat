@@ -4,6 +4,7 @@ import { InitialChat } from "./InitialChat";
 import { useChat } from "../hooks/use-chat";
 import { ChatMessage } from "./ChatMessage";
 import MainInput from "@/app/components/MainInput";
+import VideoCarousel from "./VideoCarousel";
 
 
 export function ChatInterfaceV2({ initialQuery }: { initialQuery: string }) {
@@ -30,7 +31,7 @@ export function ChatInterfaceV2({ initialQuery }: { initialQuery: string }) {
 
   const firstMessageComponent = () => {
     return (
-      <div className="flex flex-col flex-1 gap-5 items-center justify-center">
+      <div className="flex flex-col flex-1 gap-8 items-center justify-center">
         <InitialChat
           value={inputValue}
           onChange={setInputValue}
@@ -39,7 +40,7 @@ export function ChatInterfaceV2({ initialQuery }: { initialQuery: string }) {
           initialValue={initialQuery} 
         />
         <ButtonsLanguageSelect onSelect={handleLanguageSelect} />
-      
+        <VideoCarousel />
       </div>
     );
   };
