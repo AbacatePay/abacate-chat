@@ -1,6 +1,6 @@
 import IconSubmit from "@icons/submit";
 import { Loader2 } from "lucide-react";
-import React, { useRef, useEffect, useCallback } from "react";
+import React, { useRef, useEffect, useCallback, forwardRef, useImperativeHandle } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 
 export interface MainInputProps {
@@ -11,15 +11,25 @@ export interface MainInputProps {
   initialValue?: string;
 }
 
-export default function MainInput({
+export interface MainInputRef {
+  focus: () => void;
+}
+
+const MainInput = forwardRef<MainInputRef, MainInputProps>(({
   value,
   onChange,
   onSubmit,
   isLoading,
-}: MainInputProps) {
+}, ref) => {
   const textareaRef = useRef<HTMLTextAreaElement>(null);
   const router = useRouter();
   const searchParams = useSearchParams();
+
+  useImperativeHandle(ref, () => ({
+    focus: () => {
+      textareaRef.current?.focus();
+    }
+  }));
 
   const updateUrlWithQuery = useCallback((queryValue: string) => {
     const params = new URLSearchParams(searchParams.toString());
@@ -100,4 +110,8 @@ export default function MainInput({
       </div>
     </div>
   );
-}
+});
+
+MainInput.displayName = "MainInput";
+
+export default MainInput;
