@@ -3,7 +3,7 @@ import { useRef, useEffect } from "react";
 import { InitialChat } from "./InitialChat";
 import { useChat } from "../hooks/use-chat";
 import { ChatMessage } from "./ChatMessage";
-import MainInput from "@/app/components/MainInput";
+import MainInput, { MainInputRef } from "@/app/components/MainInput";
 
 
 export function ChatInterfaceV2({ initialQuery }: { initialQuery: string }) {
@@ -16,9 +16,17 @@ export function ChatInterfaceV2({ initialQuery }: { initialQuery: string }) {
     sendMessage,  
   } = useChat();
   const messagesEndRef = useRef<HTMLDivElement>(null);
+  const initialChatInputRef = useRef<MainInputRef>(null);
+  const mainInputRef = useRef<MainInputRef>(null);
 
   const handleLanguageSelect = (selectedPrompt: string) => {
     setInputValue(selectedPrompt);
+    
+    if (isFirstMessage) {
+      initialChatInputRef.current?.focus();
+    } else {
+      mainInputRef.current?.focus();
+    }
   };
 
   useEffect(() => {
@@ -32,6 +40,7 @@ export function ChatInterfaceV2({ initialQuery }: { initialQuery: string }) {
     return (
       <div className="flex flex-col flex-1 gap-5 items-center justify-center">
         <InitialChat
+          ref={initialChatInputRef}
           value={inputValue}
           onChange={setInputValue}
           onSubmit={sendMessage}
@@ -55,6 +64,7 @@ export function ChatInterfaceV2({ initialQuery }: { initialQuery: string }) {
         </div>
         <div className="relative z-10 h-35 p-2 w-full max-w-3xl">
           <MainInput
+            ref={mainInputRef}
             value={inputValue}
             onChange={setInputValue}
             onSubmit={sendMessage}
