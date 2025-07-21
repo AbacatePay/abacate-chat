@@ -5,11 +5,7 @@ export interface ChatMessage {
   timestamp: Date;
 }
 
-export interface ChatResponse {
-  success: boolean;
-  message: string;
-  data?: any;
-}
+
 
 export interface StreamChunk {
   type: "threadId" | "content";
@@ -17,7 +13,7 @@ export interface StreamChunk {
   content?: string;
 }
 
-export type StreamCallback = (chunk: StreamChunk) => void;
+type StreamCallback = (chunk: StreamChunk) => void;
 
 class ChatApiService {
   private baseUrl: string;
