@@ -32,7 +32,7 @@ export function ChatInterfaceV2({ initialQuery }: { initialQuery: string }) {
   const firstMessageComponent = () => {
     return (
       <div className="flex flex-col h-full overflow-y-auto overflow-x-hidden invisible-scrollbar">
-        <div className="md:min-h-[75vh] min-h-[90vh] flex flex-col gap-8 items-center justify-center ">
+        <div className="md:min-h-[75vh] min-h-[70vh] flex flex-col gap-8 items-center justify-center ">
           <InitialChat
             value={inputValue}
             onChange={setInputValue}

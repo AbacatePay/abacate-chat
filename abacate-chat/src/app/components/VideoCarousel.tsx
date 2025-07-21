@@ -1,53 +1,182 @@
-import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from "./ui/carousel";
-import Autoplay from 'embla-carousel-autoplay'
+"use client"
 
-const videos = [
+import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from "./ui/carousel";
+import Autoplay, { type AutoplayType } from 'embla-carousel-autoplay'
+import { useEffect, useRef, useState } from 'react'
+
+interface Video {
+  id: number;
+  title: string;
+  videoId: string;
+}
+
+interface YouTubePlayer {
+  pauseVideo(): void;
+  playVideo(): void;
+  stopVideo(): void;
+  getPlayerState(): number;
+  destroy(): void;
+}
+
+interface YouTubeEvent {
+  target: YouTubePlayer;
+  data: number;
+}
+
+const videos: Video[] = [
   {
     id: 1,
     title: "Como integrar com Bubble.io",
-    url: "https://www.youtube.com/embed/N0WnJexaXbE?si=tB0XdyuUIfK2foj9"
+    videoId: "N0WnJexaXbE"
   },
   { 
     id: 2,
     title: "Como integrar com Lovable",
-    url: "https://www.youtube.com/embed/uC1efuEXD_E?si=ma9GJVUUL_tgk9rV"
+    videoId: "uC1efuEXD_E"
   },
   {
     id: 3,
-    title: "Como integrar com WooCommerce",
-    url: "https://www.youtube.com/embed/r0cfpxkSfIM?si=yN_l2MvIT8TB8NsA"
+    title: "Como integrar com Woocommerce",
+    videoId: "r0cfpxkSfIM"
   },
   {
     id: 4,
     title: "Como integrar com NextJS",
-    url: "https://www.youtube.com/embed/ZZOJNEzAPQg?si=82Z-_OWwpIJ8Qxo2"
+    videoId: "ZZOJNEzAPQg"
   },
   {
     id: 5,
     title: "Como integrar com um SaaS",
-    url: "https://www.youtube.com/embed/eOctEl8XfW0?si=V-ogzE3WZRKx46kI"
+    videoId: "eOctEl8XfW0"
   }
 ]
-// 
+
+declare global {
+  interface Window {
+    YT: {
+      Player: new (elementId: string, config: YouTubePlayerConfig) => YouTubePlayer;
+    };
+    onYouTubeIframeAPIReady: () => void;
+  }
+}
+
+interface YouTubePlayerConfig {
+  height: string;
+  width: string;
+  videoId: string;
+  playerVars?: {
+    rel?: number;
+    controls?: number;
+    iv_load_policy?: number;
+    fs?: number;
+    enablejsapi?: number;
+    origin?: string;
+    autoplay?: number;
+  };
+  events?: {
+    onReady?: (event: YouTubeEvent) => void;
+    onStateChange?: (event: YouTubeEvent) => void;
+  };
+}
+
 function VideoCarousel() {
+  const [currentPlayingId, setCurrentPlayingId] = useState<number | null>(null);
+  const [isApiReady, setIsApiReady] = useState(false);
+  const autoplayRef = useRef<AutoplayType | null>(null);
+  const carouselRef = useRef<HTMLDivElement>(null);
+  const playersRef = useRef<Map<number, YouTubePlayer>>(new Map());
+
+  useEffect(() => {
+    if (!window.YT) {
+      const tag = document.createElement('script');
+      tag.src = 'https://www.youtube.com/iframe_api';
+      const firstScriptTag = document.getElementsByTagName('script')[0];
+      firstScriptTag.parentNode?.insertBefore(tag, firstScriptTag);
+
+      window.onYouTubeIframeAPIReady = () => {
+        setIsApiReady(true);
+      };
+    } else {
+      setIsApiReady(true);
+    }
+  }, []);
+
+  const onPlayerStateChange = (event: YouTubeEvent, videoId: number) => {
+    if (event.data === 1) {
+      setCurrentPlayingId(videoId);
+      
+      playersRef.current.forEach((player, id) => {
+        if (id !== videoId) {
+            player.pauseVideo();
+        }
+      });
+
+      if (autoplayRef.current) {
+        autoplayRef.current.stop();
+      }
+    } else if (event.data === 2 || event.data === 0) {
+      if (currentPlayingId === videoId) {
+        setCurrentPlayingId(null);
+      }
+    }
+  };
+
+  useEffect(() => {
+    if (!isApiReady || !window.YT?.Player) return;
+    const timer = setTimeout(() => {
+      for (const video of videos) {
+         new window.YT.Player(`youtube-player-${video.id}`, {
+            height: '100%',
+            width: '100%',
+            videoId: video.videoId,
+            playerVars: {
+              rel: 0,
+              controls: 1,
+              iv_load_policy: 3,
+              fs: 0,
+              enablejsapi: 1,
+              origin: window.location.origin,
+              autoplay: 0
+            },
+            events: {
+              onReady: (event: YouTubeEvent) => {
+                playersRef.current.set(video.id, event.target);
+              },
+              onStateChange: (event: YouTubeEvent) => onPlayerStateChange(event, video.id)
+            }
+          });
+      }
+    }, 100);
+
+    return () => {
+      clearTimeout(timer);
+      playersRef.current.forEach((player, id) => {
+        player.destroy();
+        playersRef.current.delete(id);
+      });
+      playersRef.current.clear();
+    };
+  }, [isApiReady]);
+
+  useEffect(() => {
+    autoplayRef.current = Autoplay({ delay: 5000 });
+  }, []);
 
   return (
-    <Carousel className="w-full md:max-w-xl max-w-[80vw] mx-auto" opts={{ align: "start", loop: true }} plugins={[Autoplay({ delay: 5000 })]}>
+    <Carousel 
+      ref={carouselRef}
+      className="w-full mx-auto md:max-w-xl max-w-[95vw]" 
+      opts={{ align: "start", loop: true }} 
+      plugins={autoplayRef.current ? [autoplayRef.current] : []}
+    >
     <CarouselContent className="-ml-1">
       {videos.map((video) => (
         <CarouselItem key={video.id} className="pl-1 basis-full">
           <div className="p-4 flex flex-col items-center justify-center">
-            <h2 className="text-2xl font-bold mb-4">{video.title}</h2>
-            <iframe 
-              src={`${video.url}&rel=1&controls=0&iv_load_policy=3&fs=0`} 
-              width="500px" 
-              height="300px" 
+            <h2 className="text-xl md:text-2xl font-bold mb-4 text-center">{video.title}</h2>
+              <div 
+                id={`youtube-player-${video.id}`}
               className="max-w-lg aspect-video"
-              title="YouTube video player" 
-              frameBorder="0" 
-              allow="accelerometer; clipboard-write; encrypted-media; gyroscope; " 
-              referrerPolicy="strict-origin-when-cross-origin" 
-              allowFullScreen
             />
           </div>
         </CarouselItem>
