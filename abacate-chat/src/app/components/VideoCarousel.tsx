@@ -165,15 +165,15 @@ function VideoCarousel() {
   return (
     <Carousel 
       ref={carouselRef}
-      className="w-full mx-auto md:max-w-xl max-w-[95vw]" 
+      className="w-full mx-auto md:max-w-[80vw] max-w-[95vw]" 
       opts={{ align: "start", loop: true }} 
       plugins={autoplayRef.current ? [autoplayRef.current] : []}
     >
     <CarouselContent className="-ml-1">
       {videos.map((video) => (
-        <CarouselItem key={video.id} className="pl-1 basis-full">
+        <CarouselItem key={video.id} className="pl-1 md:basis-1/3 basis-full">
           <div className="p-4 flex flex-col items-center justify-center">
-            <h2 className="text-xl md:text-2xl font-bold mb-4 text-center">{video.title}</h2>
+            <h2 className="text-xl font-bold mb-4 text-center">{video.title}</h2>
               <div 
                 id={`youtube-player-${video.id}`}
               className="max-w-lg aspect-video"
