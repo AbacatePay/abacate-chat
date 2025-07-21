@@ -1,16 +1,17 @@
-import MainInput, { MainInputProps } from "./MainInput";
+import MainInput, { MainInputProps, MainInputRef } from "./MainInput";
+import { forwardRef } from "react";
 
 type InitialChatProps = MainInputProps & {
   initialValue?: string;
 };
 
-export function InitialChat({
+export const InitialChat = forwardRef<MainInputRef, InitialChatProps>(({
   value,
   onChange,
   onSubmit,
   isLoading,
   initialValue,
-}: InitialChatProps) {
+}, ref) => {
   return (
     <div className="flex flex-col gap-5 items-center">
       <div>
@@ -21,6 +22,7 @@ export function InitialChat({
       </div>
       <div className="h-40 w-full max-w-3xl flex flex-col justify-center items-center">
         <MainInput
+          ref={ref}
           value={value}
           onChange={onChange}
           onSubmit={onSubmit}
@@ -30,4 +32,4 @@ export function InitialChat({
       </div>
     </div>
   );
-}
+});
