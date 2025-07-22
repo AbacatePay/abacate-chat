@@ -4,6 +4,7 @@ import { InitialChat } from "./InitialChat";
 import { useChat } from "../hooks/use-chat";
 import { ChatMessage } from "./ChatMessage";
 import MainInput, { MainInputRef } from "@/app/components/MainInput";
+import VideoCarousel from "./VideoCarousel";
 
 
 export function ChatInterfaceV2({ initialQuery }: { initialQuery: string }) {
@@ -38,17 +39,21 @@ export function ChatInterfaceV2({ initialQuery }: { initialQuery: string }) {
 
   const firstMessageComponent = () => {
     return (
-      <div className="flex flex-col flex-1 gap-5 items-center justify-center">
-        <InitialChat
+      <div className="flex flex-col h-full overflow-y-auto overflow-x-hidden invisible-scrollbar">
+        <div className="md:min-h-[75vh] min-h-[70vh] flex flex-col gap-8 items-center justify-center ">
+          <InitialChat
           ref={initialChatInputRef}
-          value={inputValue}
-          onChange={setInputValue}
-          onSubmit={sendMessage}
-          isLoading={false}
-          initialValue={initialQuery} 
-        />
-        <ButtonsLanguageSelect onSelect={handleLanguageSelect} />
-      
+            value={inputValue}
+            onChange={setInputValue}
+            onSubmit={sendMessage}
+            isLoading={false}
+            initialValue={initialQuery} 
+          />
+          <ButtonsLanguageSelect onSelect={handleLanguageSelect} />
+        </div>
+        <div className="flex flex-col items-center justify-center">
+          <VideoCarousel />
+        </div>
       </div>
     );
   };

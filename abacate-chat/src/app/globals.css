@@ -157,6 +157,10 @@ body {
   .placeholder-primary {
     color: var(--primary);
   }
+
+  .invisible-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
 }
 
 /* ---------------------------------------------------------------------------- */
