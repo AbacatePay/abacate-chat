@@ -155,7 +155,7 @@ function VideoCarousel() {
   }, [isApiReady]);
 
   useEffect(() => {
-    autoplayRef.current = Autoplay({ delay: 1000 });
+    autoplayRef.current = Autoplay({ delay: 5000 });
   }, []);
 
   return (
