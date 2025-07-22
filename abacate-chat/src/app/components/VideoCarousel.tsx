@@ -83,28 +83,28 @@ function VideoCarousel() {
   const [currentPlayingId, setCurrentPlayingId] = useState<number | null>(null);
   const [isApiReady, setIsApiReady] = useState(false);
   const autoplayRef = useRef<AutoplayType | null>(null);
-  const carouselRef = useRef<HTMLDivElement>(null);
   const playersRef = useRef<Map<number, YouTubePlayer>>(new Map());
 
-  useEffect(() => {
+  useEffect(() => { 
+    const initializeYouTubeAPI = () => {
+      setIsApiReady(true);
+    };
+
     if (!window.YT) {
       const tag = document.createElement('script');
       tag.src = 'https://www.youtube.com/iframe_api';
       const firstScriptTag = document.getElementsByTagName('script')[0];
       firstScriptTag.parentNode?.insertBefore(tag, firstScriptTag);
 
-      window.onYouTubeIframeAPIReady = () => {
-        setIsApiReady(true);
-      };
+      window.onYouTubeIframeAPIReady = initializeYouTubeAPI;
     } else {
-      setIsApiReady(true);
+      initializeYouTubeAPI();
     }
   }, []);
 
   const onPlayerStateChange = (event: YouTubeEvent, videoId: number) => {
     if (event.data === 1) {
       setCurrentPlayingId(videoId);
-      
       playersRef.current.forEach((player, id) => {
         if (id !== videoId) {
             player.pauseVideo();
@@ -114,7 +114,7 @@ function VideoCarousel() {
       if (autoplayRef.current) {
         autoplayRef.current.stop();
       }
-    } else if (event.data === 2 || event.data === 0) {
+    } else if (event.data === 0) {
       if (currentPlayingId === videoId) {
         setCurrentPlayingId(null);
       }
@@ -150,21 +150,16 @@ function VideoCarousel() {
 
     return () => {
       clearTimeout(timer);
-      playersRef.current.forEach((player, id) => {
-        player.destroy();
-        playersRef.current.delete(id);
-      });
       playersRef.current.clear();
     };
   }, [isApiReady]);
 
   useEffect(() => {
-    autoplayRef.current = Autoplay({ delay: 5000 });
+    autoplayRef.current = Autoplay({ delay: 1000 });
   }, []);
 
   return (
     <Carousel 
-      ref={carouselRef}
       className="w-full mx-auto md:max-w-[80vw] max-w-[95vw]" 
       opts={{ align: "start", loop: true }} 
       plugins={autoplayRef.current ? [autoplayRef.current] : []}
