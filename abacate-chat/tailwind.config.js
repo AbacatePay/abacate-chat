@@ -12,6 +12,8 @@ module.exports = {
       extend: {
         colors: {
           'gray-light': 'var(--color-gray-light)',
+          'gray-border': 'var(--color-gray-border)',
+          'gray-text': 'var(--color-gray-text)',
         },
       },
     },

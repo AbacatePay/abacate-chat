@@ -1,3 +1,6 @@
+import { ArrowRightIcon } from "lucide-react";
+import { Button } from "../components/ui/button";
+
 export default function Page() {
   return (
     <>
@@ -15,6 +18,10 @@ export default function Page() {
             </svg>
             <p className="text-[16px] font-semibold">Abacademy</p>
           </div>
+          <Button variant="outline" className="border-gray-border text-gray-text shadow-none font-bold bg-[#F7F7F8] cursor-pointer">
+            <p className="text-[16px] font-semibold">Ir pra plataforma</p>
+            <ArrowRightIcon className="w-4 h-4" />
+          </Button>
         </div>
         <div className="px-6 w-full">
           <div className="bg-white w-full h-screen flex flex-col rounded-2xl"></div>

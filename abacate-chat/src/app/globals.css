@@ -20,10 +20,11 @@
 
   /*Color gray*/
   --color-gray-light: #F6F8FA;
-  --color-gray-border: #E2E7F1;
+  --color-gray-border: #E2E7F2;
   --color-gray-text: #4C5267;
   --color-gray-dark: #121217;
   --color-gray-placeholder: #7A7A8C;
+  --color-gray-text: #485066;
 
   /*Color code*/
   --color-code-dark: #181818;
