@@ -1,7 +1,6 @@
 "use client";
 import { useState } from "react";
 
-// YouTube video data structure
 interface Video {
   id: string;
   title: string;
@@ -9,30 +8,35 @@ interface Video {
   category: string;
 }
 
-// Sample video data - replace with your actual videos
 const videos: Video[] = [
   {
     id: "1",
-    title: "Getting Started with React",
-    youtubeId: "dQw4w9WgXcQ", // Replace with actual YouTube video ID
-    category: "vibe-code"
-  },
-  {
-    id: "2", 
-    title: "JavaScript Fundamentals",
-    youtubeId: "dQw4w9WgXcQ", // Replace with actual YouTube video ID
-    category: "code"
-  },
-  {
-    id: "3",
-    title: "No-Code Tools Overview", 
-    youtubeId: "dQw4w9WgXcQ", // Replace with actual YouTube video ID
+    title: "Como integrar com Bubble.io",
+    youtubeId: "N0WnJexaXbE",
     category: "low-code"
   },
   {
+    id: "2", 
+    title: "Como integrar com Lovable",
+    youtubeId: "uC1efuEXD_E",
+    category: "low-code"
+  },
+  {
+    id: "3",
+    title: "Como integrar com Woocommerce", 
+    youtubeId: "r0cfpxkSfIM",
+    category: "code"
+  },
+  {
     id: "4",
-    title: "Programming Concepts Explained",
-    youtubeId: "dQw4w9WgXcQ", // Replace with actual YouTube video ID
+    title: "Como integrar com NextJS",
+    youtubeId: "ZZOJNEzAPQg",
+    category: "code"
+  },
+  {
+    id: "5",
+    title: "Como integrar com um SaaS",
+    youtubeId: "eOctEl8XfW0",
     category: "conceitos"
   }
 ];
@@ -64,17 +68,14 @@ export default function VideosSection() {
   const [selectedTab, setSelectedTab] = useState("vibe-code");
   const [selectedVideo, setSelectedVideo] = useState<Video | null>(null);
 
-  // Filter videos by selected category
   const filteredVideos = videos.filter(video => video.category === selectedTab);
 
-  // Extract YouTube video ID from URL
   const getYouTubeId = (url: string): string => {
     const regExp = /^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|&v=)([^#&?]*).*/;
     const match = url.match(regExp);
     return (match && match[2].length === 11) ? match[2] : '';
   };
 
-  // Get YouTube thumbnail URL
   const getThumbnailUrl = (youtubeId: string): string => {
     return `https://img.youtube.com/vi/${youtubeId}/maxresdefault.jpg`;
   };
@@ -119,7 +120,6 @@ export default function VideosSection() {
       </div>
       <div className="mt-6">
         {selectedVideo ? (
-          // Video Player
           <div className="w-full">
             <div className="relative w-full h-0 pb-[56.25%] bg-black rounded-lg overflow-hidden">
               <iframe
@@ -142,7 +142,6 @@ export default function VideosSection() {
             </div>
           </div>
         ) : (
-          // Video Grid
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {filteredVideos.map((video) => (
               <div
@@ -156,7 +155,6 @@ export default function VideosSection() {
                     alt={video.title}
                     className="w-full h-48 object-cover"
                     onError={(e) => {
-                      // Fallback to default thumbnail if maxresdefault fails
                       const target = e.target as HTMLImageElement;
                       target.src = `https://img.youtube.com/vi/${video.youtubeId}/hqdefault.jpg`;
                     }}
