@@ -14,6 +14,7 @@ module.exports = {
           'gray-light': 'var(--color-gray-light)',
           'gray-border': 'var(--color-gray-border)',
           'gray-text': 'var(--color-gray-text)',
+          'gray-search': 'var(--color-gray-search)',
         },
       },
     },
