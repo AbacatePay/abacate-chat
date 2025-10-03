@@ -30,7 +30,7 @@ export default function VideosSection() {
   return (
     <>
       <div className="w-full flex gap-2">
-        <div className="flex gap-2 bg-[#F5F6F8] h-10 rounded-lg">
+        <div className="flex gap-1 bg-[#F5F6F8] border-1 border-[#E2E7F1] p-1 h-10 rounded-lg">
           {tabs.map((tab) => (
             <div
               key={tab.id}
