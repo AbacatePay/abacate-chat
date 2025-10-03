@@ -1,12 +1,7 @@
 import { ArrowRightIcon } from "lucide-react";
 import { Button } from "../components/ui/button";
 import SearchAcademy from "../components/search-academy";
-import {
-  Tabs,
-  TabsContent,
-  TabsList,
-  TabsTrigger,
-} from "../components/ui/tabs";
+import VideosSection from "../components/videos-section";
 
 export default function Page() {
   return (
@@ -36,28 +31,7 @@ export default function Page() {
         <div className="px-6 w-full">
           <div className="bg-white w-full h-screen flex flex-col rounded-2xl p-6 gap-4">
             <SearchAcademy />
-            <Tabs defaultValue="account" className="w-[400px] ">
-              <TabsList className="bg-[#F5F6F8] rounded-lg border-1 border-[#E2E7F1] shadow-none gap-2">
-                <TabsTrigger
-                  className="text-[#6A7085] font-semibold data-[state=active]:bg-white data-[state=active]:border-1 data-[state=active]:border-[#E2E7F1] data-[state=active]:text-[#0A1B39] shadow-none"
-                  value="account"
-                >
-                  Account
-                </TabsTrigger>
-                <TabsTrigger
-                  className="text-[#6A7085] font-semibold data-[state=active]:bg-white data-[state=active]:border-1 data-[state=active]:border-[#E2E7F1] data-[state=active]:text-[#0A1B39] shadow-none"
-                  value="password"
-                >
-                  Password
-                </TabsTrigger>
-              </TabsList>
-              <TabsContent value="account">
-                Make changes to your account here.
-              </TabsContent>
-              <TabsContent value="password">
-                Change your password here.
-              </TabsContent>
-            </Tabs>
+            <VideosSection />
           </div>
         </div>
       </div>
