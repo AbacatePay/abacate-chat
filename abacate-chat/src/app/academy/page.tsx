@@ -1,6 +1,12 @@
 import { ArrowRightIcon } from "lucide-react";
 import { Button } from "../components/ui/button";
 import SearchAcademy from "../components/search-academy";
+import {
+  Tabs,
+  TabsContent,
+  TabsList,
+  TabsTrigger,
+} from "../components/ui/tabs";
 
 export default function Page() {
   return (
@@ -28,8 +34,30 @@ export default function Page() {
           </Button>
         </div>
         <div className="px-6 w-full">
-          <div className="bg-white w-full h-screen flex flex-col rounded-2xl">
+          <div className="bg-white w-full h-screen flex flex-col rounded-2xl p-6 gap-4">
             <SearchAcademy />
+            <Tabs defaultValue="account" className="w-[400px] ">
+              <TabsList className="bg-[#F5F6F8] rounded-lg border-1 border-[#E2E7F1] shadow-none gap-2">
+                <TabsTrigger
+                  className="bg-white border-1 border-[#E2E7F1] shadow-none"
+                  value="account"
+                >
+                  Account
+                </TabsTrigger>
+                <TabsTrigger
+                  className="bg-white border-1 border-[#E2E7F1] shadow-none"
+                  value="password"
+                >
+                  Password
+                </TabsTrigger>
+              </TabsList>
+              <TabsContent value="account">
+                Make changes to your account here.
+              </TabsContent>
+              <TabsContent value="password">
+                Change your password here.
+              </TabsContent>
+            </Tabs>
           </div>
         </div>
       </div>

@@ -12,7 +12,7 @@ import {
 
 export default function SearchAcademy() {
   return (
-    <div className="p-6">
+    <div className="">
       <h2 className="text-lg font-medium text-gray-search mb-4">
         Vídeos, tutoriais, artigos, repositórios e mais.
       </h2>
