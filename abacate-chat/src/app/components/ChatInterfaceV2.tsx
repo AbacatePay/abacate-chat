@@ -51,9 +51,6 @@ export function ChatInterfaceV2({ initialQuery }: { initialQuery: string }) {
           />
           <ButtonsLanguageSelect onSelect={handleLanguageSelect} />
         </div>
-        <div className="flex flex-col items-center justify-center">
-          <VideoCarousel />
-        </div>
       </div>
     );
   };

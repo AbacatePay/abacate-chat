@@ -36,7 +36,7 @@ export default function Footer() {
   ];
 
   return (
-    <footer className="flex flex-col md:flex-row items-center px-8 mt-2 w-full text-primary md:justify-between">
+    <footer className="flex flex-col md:flex-row items-center px-20 mt-2 w-full text-primary md:justify-between">
       <div>
         <p className="font-semibold text-4 text-right align-middle text-primary">
           AbacatePay @ {new Date().getFullYear()}
