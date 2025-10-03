@@ -1,6 +1,42 @@
 "use client";
 import { useState } from "react";
 
+// YouTube video data structure
+interface Video {
+  id: string;
+  title: string;
+  youtubeId: string;
+  category: string;
+}
+
+// Sample video data - replace with your actual videos
+const videos: Video[] = [
+  {
+    id: "1",
+    title: "Getting Started with React",
+    youtubeId: "dQw4w9WgXcQ", // Replace with actual YouTube video ID
+    category: "vibe-code"
+  },
+  {
+    id: "2", 
+    title: "JavaScript Fundamentals",
+    youtubeId: "dQw4w9WgXcQ", // Replace with actual YouTube video ID
+    category: "code"
+  },
+  {
+    id: "3",
+    title: "No-Code Tools Overview", 
+    youtubeId: "dQw4w9WgXcQ", // Replace with actual YouTube video ID
+    category: "low-code"
+  },
+  {
+    id: "4",
+    title: "Programming Concepts Explained",
+    youtubeId: "dQw4w9WgXcQ", // Replace with actual YouTube video ID
+    category: "conceitos"
+  }
+];
+
 const tabs = [
   {
     id: "vibe-code",
@@ -26,6 +62,22 @@ const tabs = [
 
 export default function VideosSection() {
   const [selectedTab, setSelectedTab] = useState("vibe-code");
+  const [selectedVideo, setSelectedVideo] = useState<Video | null>(null);
+
+  // Filter videos by selected category
+  const filteredVideos = videos.filter(video => video.category === selectedTab);
+
+  // Extract YouTube video ID from URL
+  const getYouTubeId = (url: string): string => {
+    const regExp = /^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|&v=)([^#&?]*).*/;
+    const match = url.match(regExp);
+    return (match && match[2].length === 11) ? match[2] : '';
+  };
+
+  // Get YouTube thumbnail URL
+  const getThumbnailUrl = (youtubeId: string): string => {
+    return `https://img.youtube.com/vi/${youtubeId}/maxresdefault.jpg`;
+  };
 
   return (
     <>
@@ -64,6 +116,70 @@ export default function VideosSection() {
           </svg>
           <p>Escolher tech</p>
         </button>
+      </div>
+      <div className="mt-6">
+        {selectedVideo ? (
+          // Video Player
+          <div className="w-full">
+            <div className="relative w-full h-0 pb-[56.25%] bg-black rounded-lg overflow-hidden">
+              <iframe
+                className="absolute top-0 left-0 w-full h-full"
+                src={`https://www.youtube.com/embed/${selectedVideo.youtubeId}?autoplay=1`}
+                title={selectedVideo.title}
+                frameBorder="0"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                allowFullScreen
+              />
+            </div>
+            <div className="mt-4 flex items-center justify-between">
+              <h3 className="text-lg font-semibold text-[#0A1B39]">{selectedVideo.title}</h3>
+              <button
+                onClick={() => setSelectedVideo(null)}
+                className="px-4 py-2 text-sm text-[#6A7085] hover:text-[#0A1B39] transition-colors"
+              >
+                ← Back to videos
+              </button>
+            </div>
+          </div>
+        ) : (
+          // Video Grid
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {filteredVideos.map((video) => (
+              <div
+                key={video.id}
+                className="bg-white rounded-lg border border-[#E2E7F1] overflow-hidden hover:shadow-lg transition-shadow cursor-pointer"
+                onClick={() => setSelectedVideo(video)}
+              >
+                <div className="relative">
+                  <img
+                    src={getThumbnailUrl(video.youtubeId)}
+                    alt={video.title}
+                    className="w-full h-48 object-cover"
+                    onError={(e) => {
+                      // Fallback to default thumbnail if maxresdefault fails
+                      const target = e.target as HTMLImageElement;
+                      target.src = `https://img.youtube.com/vi/${video.youtubeId}/hqdefault.jpg`;
+                    }}
+                  />
+                  <div className="absolute inset-0 flex items-center justify-center bg-black bg-opacity-30 hover:bg-opacity-50 transition-all">
+                    <div className="w-16 h-16 bg-red-600 rounded-full flex items-center justify-center">
+                      <svg
+                        className="w-6 h-6 text-white ml-1"
+                        fill="currentColor"
+                        viewBox="0 0 24 24"
+                      >
+                        <path d="M8 5v14l11-7z" />
+                      </svg>
+                    </div>
+                  </div>
+                </div>
+                <div className="p-4">
+                  <h3 className="font-semibold text-[#0A1B39] line-clamp-2">{video.title}</h3>
+                </div>
+              </div>
+            ))}
+          </div>
+        )}
       </div>
     </>
   );
