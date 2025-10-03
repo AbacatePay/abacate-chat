@@ -39,13 +39,13 @@ export default function Page() {
             <Tabs defaultValue="account" className="w-[400px] ">
               <TabsList className="bg-[#F5F6F8] rounded-lg border-1 border-[#E2E7F1] shadow-none gap-2">
                 <TabsTrigger
-                  className="bg-white border-1 border-[#E2E7F1] shadow-none"
+                  className="text-[#6A7085] font-semibold data-[state=active]:bg-white data-[state=active]:border-1 data-[state=active]:border-[#E2E7F1] data-[state=active]:text-[#0A1B39] shadow-none"
                   value="account"
                 >
                   Account
                 </TabsTrigger>
                 <TabsTrigger
-                  className="bg-white border-1 border-[#E2E7F1] shadow-none"
+                  className="text-[#6A7085] font-semibold data-[state=active]:bg-white data-[state=active]:border-1 data-[state=active]:border-[#E2E7F1] data-[state=active]:text-[#0A1B39] shadow-none"
                   value="password"
                 >
                   Password
