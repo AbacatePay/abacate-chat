@@ -41,7 +41,7 @@ export const Sidebar = memo(function Sidebar({ className }: SidebarProps) {
         icon: GraduationCap,
         label: "Academy",
         href: "/academy",
-        active: pathname === "/academy",
+        active: pathname === "/academy" || pathname.startsWith("/academy/"),
       },
     ],
     [pathname]
