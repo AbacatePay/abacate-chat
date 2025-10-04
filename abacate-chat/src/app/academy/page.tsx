@@ -1,15 +1,11 @@
 "use client";
 
-import { useState } from "react";
 import { ArrowRightIcon, GraduationCap } from "lucide-react";
-import { Button } from "../components/ui/button";
-import SearchAcademy from "../components/search-academy";
-import VideosSection from "../components/videos-section";
-import { Sidebar } from "../components/layout/sidebar";
+import { Button } from "@/app/components/ui/button";
+import { Sidebar } from "@/app/components/layout/sidebar";
+import { VideosGrid } from "./components/videos-grid";
 
-export default function Page() {
-  const [searchQuery, setSearchQuery] = useState("");
-
+export default function AcademyPage() {
   return (
     <div className="flex h-screen w-full overflow-hidden bg-background">
       <Sidebar />
@@ -32,11 +28,11 @@ export default function Page() {
           </a>
         </header>
 
-        <div className="flex flex-1 flex-col overflow-hidden">
-          <div className="mx-auto flex h-full w-full max-w-6xl flex-col overflow-hidden p-6">
-            <div className="mb-6">
-              <div className="inline-flex gap-2 items-center justify-center">
-                <GraduationCap className="size-10" />
+        <div className="flex flex-1 flex-col overflow-auto">
+          <div className="mx-auto flex w-full max-w-6xl flex-col gap-6 p-6">
+            <div className="flex flex-col gap-2">
+              <div className="inline-flex items-center gap-2">
+                <GraduationCap className="h-10 w-10 text-primary" />
                 <h2 className="text-2xl font-bold text-foreground">Academy</h2>
               </div>
               <p className="text-base text-soft-400">
@@ -45,10 +41,7 @@ export default function Page() {
               </p>
             </div>
 
-            <div className="flex h-full w-full flex-col gap-4 overflow-hidden">
-              <SearchAcademy onSearchChange={setSearchQuery} />
-              <VideosSection searchQuery={searchQuery} />
-            </div>
+            <VideosGrid />
           </div>
         </div>
       </main>
