@@ -37,7 +37,7 @@ const tabs = [
 export default function VideosSection({
   searchQuery = "",
 }: VideosSectionProps) {
-  const [selectedTab, setSelectedTab] = useState("vibe-code");
+  const [selectedTab, setSelectedTab] = useState("all");
   const [selectedVideo, setSelectedVideo] = useState<InterfaceVideo | null>(
     null
   );
