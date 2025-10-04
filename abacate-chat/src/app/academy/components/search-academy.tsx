@@ -16,7 +16,7 @@ export function SearchAcademy({ onSearchChange }: SearchAcademyProps) {
   };
 
   return (
-    <Command className="h-10 rounded-lg border border-border shadow-none">
+    <Command className="h-12 rounded-lg border border-border shadow-none">
       <CommandInput
         placeholder="Pesquisar vídeos, tutoriais..."
         className="border-none text-foreground placeholder:text-soft-400"
