@@ -21,8 +21,10 @@ export default function VideoPage() {
       <div className="flex h-screen w-full overflow-hidden bg-background">
         <Sidebar />
         <main className="flex flex-1 flex-col overflow-hidden">
-          <header className="flex h-20 w-full flex-shrink-0 items-center justify-between border-b border-border px-6 pl-20 md:pl-6">
-            <h1 className="text-xl font-bold text-foreground">Academy</h1>
+          <header className="flex h-16 w-full flex-shrink-0 items-center justify-between border-b border-border px-4 pl-20 md:h-20 md:px-6 md:pl-6">
+            <h1 className="text-lg font-bold text-foreground md:text-xl">
+              Academy
+            </h1>
             <a
               href="https://abacatepay.com/app"
               target="_blank"
@@ -30,10 +32,11 @@ export default function VideoPage() {
             >
               <Button
                 variant="outline"
-                className="gap-2 font-semibold transition-all hover:scale-105"
+                className="gap-2 text-xs font-semibold transition-all hover:scale-105 md:text-sm"
               >
-                Ir pra plataforma
-                <ArrowRightIcon className="h-4 w-4" />
+                <span className="hidden sm:inline">Ir pra plataforma</span>
+                <span className="sm:hidden">Plataforma</span>
+                <ArrowRightIcon className="h-3 w-3 md:h-4 md:w-4" />
               </Button>
             </a>
           </header>
@@ -60,8 +63,10 @@ export default function VideoPage() {
       <Sidebar />
       <main className="flex flex-1 flex-col overflow-hidden">
         {/* Header */}
-        <header className="flex h-20 w-full flex-shrink-0 items-center justify-between border-b border-border px-6 pl-20 md:pl-6">
-          <h1 className="text-xl font-bold text-foreground">Academy</h1>
+        <header className="flex h-16 w-full flex-shrink-0 items-center justify-between border-b border-border px-4 pl-20 md:h-20 md:px-6 md:pl-6">
+          <h1 className="text-lg font-bold text-foreground md:text-xl">
+            Academy
+          </h1>
           <a
             href="https://abacatepay.com/app"
             target="_blank"
@@ -69,10 +74,11 @@ export default function VideoPage() {
           >
             <Button
               variant="outline"
-              className="gap-2 font-semibold transition-all hover:scale-105"
+              className="gap-2 text-xs font-semibold transition-all hover:scale-105 md:text-sm"
             >
-              Ir pra plataforma
-              <ArrowRightIcon className="h-4 w-4" />
+              <span className="hidden sm:inline">Ir pra plataforma</span>
+              <span className="sm:hidden">Plataforma</span>
+              <ArrowRightIcon className="h-3 w-3 md:h-4 md:w-4" />
             </Button>
           </a>
         </header>
