@@ -5,7 +5,7 @@ import Image from "next/image";
 import { MessageSquare, GraduationCap, Menu, X } from "lucide-react";
 import { useTheme } from "../theme/theme-provider";
 import { MoonIcon, SunIcon } from "lucide-react";
-import { useState } from "react";
+import { useState, useMemo, memo, useCallback } from "react";
 import { cn } from "../lib/utils";
 import {
   useModeAnimation,
@@ -16,7 +16,7 @@ interface SidebarProps {
   className?: string;
 }
 
-export function Sidebar({ className }: SidebarProps) {
+export const Sidebar = memo(function Sidebar({ className }: SidebarProps) {
   const pathname = usePathname();
   const router = useRouter();
   const { theme, toggleTheme } = useTheme();
@@ -29,25 +29,31 @@ export function Sidebar({ className }: SidebarProps) {
     duration: 500,
   });
 
-  const navItems = [
-    {
-      icon: MessageSquare,
-      label: "Chat",
-      href: "/",
-      active: pathname === "/",
-    },
-    {
-      icon: GraduationCap,
-      label: "Academy",
-      href: "/academy",
-      active: pathname === "/academy",
-    },
-  ];
+  const navItems = useMemo(
+    () => [
+      {
+        icon: MessageSquare,
+        label: "Chat",
+        href: "/",
+        active: pathname === "/",
+      },
+      {
+        icon: GraduationCap,
+        label: "Academy",
+        href: "/academy",
+        active: pathname === "/academy",
+      },
+    ],
+    [pathname]
+  );
 
-  const handleNavigation = (href: string) => {
-    router.push(href);
-    setIsMobileMenuOpen(false);
-  };
+  const handleNavigation = useCallback(
+    (href: string) => {
+      router.push(href);
+      setIsMobileMenuOpen(false);
+    },
+    [router]
+  );
 
   return (
     <>
@@ -89,7 +95,6 @@ export function Sidebar({ className }: SidebarProps) {
           className
         )}
       >
-        {/* Logo - Mobile: left aligned with text, Desktop: centered icon only */}
         <div className="mb-8 flex items-center gap-3 md:flex-col md:gap-2">
           <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-abacate-100">
             <Image
@@ -118,25 +123,40 @@ export function Sidebar({ className }: SidebarProps) {
                 <button
                   onClick={() => handleNavigation(item.href)}
                   className={cn(
-                    "flex w-full items-center gap-1 rounded-xl transition-all duration-200",
+                    "group flex w-full items-center gap-1 rounded-xl",
+                    "transition-all duration-400",
                     // Mobile: full width with text on side
                     "px-4 py-3",
                     // Desktop: compact with icon and text below
                     "md:w-auto md:flex-col md:gap-2 md:px-0 md:py-3",
                     item.active
-                      ? "bg-accent text-accent-foreground opacity-100"
-                      : "opacity-70 hover:opacity-100 hover:bg-accent/50"
+                      ? "bg-accent text-accent-foreground"
+                      : "hover:bg-accent/50 hover:opacity-100"
                   )}
+                  style={{
+                    opacity: item.active ? 1 : 0.4,
+                    transition: "opacity 200ms ease-in-out",
+                    willChange: "opacity",
+                  }}
                 >
                   <div
                     className={cn(
-                      "flex h-8 w-12 flex-shrink-0 items-center justify-center rounded-xl transition-all duration-200",
+                      "flex h-8 w-12 flex-shrink-0 items-center justify-center rounded-xl",
+                      "transition-colors duration-200",
                       item.active
                         ? "bg-primary/10 text-primary"
                         : "text-foreground"
                     )}
                   >
-                    <Icon className="h-5 w-5" />
+                    <Icon
+                      className={cn(
+                        "h-5 w-5 transition-transform ease-linear",
+                        "group-hover:scale-110",
+                        {
+                          "scale-110": item.active,
+                        }
+                      )}
+                    />
                   </div>
                   <span
                     className={cn(
@@ -177,28 +197,8 @@ export function Sidebar({ className }: SidebarProps) {
               {theme === "dark" ? "Modo Claro" : "Modo Escuro"}
             </span>
           </button>
-
-          {/* Platform Link */}
-          <a
-            href="https://abacatepay.com/app"
-            target="_blank"
-            rel="noopener noreferrer"
-            className={cn(
-              "flex items-center gap-3 rounded-xl transition-all duration-200",
-              "w-full px-4 py-3 opacity-70 hover:opacity-100 hover:bg-accent",
-              "md:w-auto md:flex-col md:gap-2 md:px-0 md:py-3"
-            )}
-            aria-label="Plataforma AbacatePay"
-          >
-            <div className="flex h-12 w-12 flex-shrink-0 items-center justify-center rounded-full bg-abacate-500">
-              <span className="text-sm font-bold text-white">N</span>
-            </div>
-            <span className="text-sm font-medium text-foreground md:text-xs md:text-center">
-              Plataforma
-            </span>
-          </a>
         </div>
       </aside>
     </>
   );
-}
+});
