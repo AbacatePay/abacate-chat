@@ -5,7 +5,7 @@ interface Video {
   id: string;
   title: string;
   youtubeId: string;
-  category: string;
+  category: string[];
 }
 
 const videos: Video[] = [
@@ -13,31 +13,31 @@ const videos: Video[] = [
     id: "1",
     title: "Como integrar com Bubble.io",
     youtubeId: "N0WnJexaXbE",
-    category: "low-code"
+    category: ["all", "low-code"]
   },
   {
     id: "2", 
     title: "Como integrar com Lovable",
     youtubeId: "uC1efuEXD_E",
-    category: "low-code"
+    category: ["all", "vibe-code"]
   },
   {
     id: "3",
     title: "Como integrar com Woocommerce", 
     youtubeId: "r0cfpxkSfIM",
-    category: "code"
+    category: ["all", "no-code"]
   },
   {
     id: "4",
     title: "Como integrar com NextJS",
     youtubeId: "ZZOJNEzAPQg",
-    category: "code"
+    category: ["all", "code"]
   },
   {
     id: "5",
     title: "Como integrar com um SaaS",
     youtubeId: "eOctEl8XfW0",
-    category: "conceitos"
+    category: ["all", "conceitos"]
   }
 ];
 
@@ -73,7 +73,9 @@ export default function VideosSection() {
   const [selectedTab, setSelectedTab] = useState("vibe-code");
   const [selectedVideo, setSelectedVideo] = useState<Video | null>(null);
 
-  const filteredVideos = videos.filter(video => video.category === selectedTab);
+  const filteredVideos = videos.filter(video => 
+    selectedTab === "todos" || video.category.includes(selectedTab)
+  );
 
   const getYouTubeId = (url: string): string => {
     const regExp = /^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|&v=)([^#&?]*).*/;
