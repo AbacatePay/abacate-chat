@@ -1,6 +1,6 @@
 "use client";
 
-import { cn } from "@/app/components/lib/utils";
+import * as SegmentedControl from "@/app/components/ui/segmented-control";
 
 interface VideoFiltersProps {
   selectedTab: string;
@@ -17,23 +17,16 @@ const tabs = [
 
 export function VideoFilters({ selectedTab, onTabChange }: VideoFiltersProps) {
   return (
-    <div className="flex gap-2 overflow-x-auto scrollbar-hide">
-      <div className="flex gap-1 rounded-lg border border-border bg-weak-50 p-1">
-        {tabs.map((tab) => (
-          <button
-            key={tab.id}
-            onClick={() => onTabChange(tab.id)}
-            className={cn(
-              "whitespace-nowrap rounded-lg px-4 py-2 text-sm font-semibold transition-colors",
-              selectedTab === tab.id
-                ? "bg-background text-foreground shadow-sm"
-                : "text-soft-400 hover:text-foreground"
-            )}
-          >
-            {tab.label}
-          </button>
-        ))}
-      </div>
+    <div className="w-full max-w-2xl">
+      <SegmentedControl.Root value={selectedTab} onValueChange={onTabChange}>
+        <SegmentedControl.List>
+          {tabs.map((tab) => (
+            <SegmentedControl.Trigger key={tab.id} value={tab.id}>
+              {tab.label}
+            </SegmentedControl.Trigger>
+          ))}
+        </SegmentedControl.List>
+      </SegmentedControl.Root>
     </div>
   );
 }

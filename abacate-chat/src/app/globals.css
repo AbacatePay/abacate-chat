@@ -82,6 +82,10 @@
   --bot-message-foreground: #000000;
   --chat-input: #eeeeee;
   --chat-input-border: #e6e6e6;
+
+  --weak-50: #f9fafb;
+  --soft-100: #f3f4f6;
+  --soft-400: #9ca3af;
 }
 
 .dark {
@@ -130,6 +134,11 @@
   --bot-message-foreground: #f2f2f2;
   --chat-input: #202020;
   --chat-input-border: #252525;
+
+  /* Utility colors */
+  --weak-50: #1f2937;
+  --soft-100: #374151;
+  --soft-400: #6b7280;
 }
 
 /* ---------------------------------------------------------------------------- */
