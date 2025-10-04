@@ -78,7 +78,7 @@ export const Sidebar = memo(function Sidebar({ className }: SidebarProps) {
       {/* Mobile Overlay */}
       {isMobileMenuOpen && (
         <div
-          className="fixed inset-0 z-40 bg-black/50 backdrop-blur-xl transition-opacity md:hidden"
+          className="fixed inset-0 z-40 bg-black/40 backdrop-blur-xl transition-opacity md:hidden"
           onClick={() => setIsMobileMenuOpen(false)}
         />
       )}
@@ -86,14 +86,15 @@ export const Sidebar = memo(function Sidebar({ className }: SidebarProps) {
       {/* Sidebar */}
       <aside
         className={cn(
-          "flex h-screen flex-col border-r border-border bg-card",
+          "flex h-screen flex-col border-r border-border",
           // Mobile: full sidebar with text labels on the side
-          "fixed left-0 top-0 z-40 w-[95vw] max-w-xs px-4 py-6 transition-all duration-300",
+          "fixed left-0 top-0 z-40 w-[80vw] max-w-xs px-4 py-4 transition-all duration-300",
           isMobileMenuOpen ? "translate-x-0" : "-translate-x-full",
           // Desktop: compact with icons centered and labels below
           "md:relative md:w-24 md:translate-x-0 md:items-center md:px-4 md:py-6",
           className
         )}
+        style={{ backgroundColor: "var(--sidebar-background)" }}
       >
         <div className="mb-8 flex items-center justify-between gap-3 md:flex-col md:gap-2">
           <div className="flex items-center gap-3">
@@ -112,7 +113,7 @@ export const Sidebar = memo(function Sidebar({ className }: SidebarProps) {
           </div>
           <button
             onClick={() => setIsMobileMenuOpen(false)}
-            className="flex h-8 w-8 items-center justify-center rounded-lg text-soft-400 transition-colors hover:bg-accent hover:text-foreground md:hidden"
+            className="flex absolute right-5 top-5 h-8 w-8 items-center justify-center rounded-lg text-soft-400 transition-colors hover:bg-accent hover:text-foreground md:hidden"
             aria-label="Close menu"
           >
             <X className="h-5 w-5" />
@@ -134,7 +135,7 @@ export const Sidebar = memo(function Sidebar({ className }: SidebarProps) {
                     "group flex w-full items-center gap-1 rounded-xl",
                     "transition-all duration-400",
                     // Mobile
-                    "px-4 py-3",
+                    "px-1 py-3",
                     // Desktop
                     "md:w-auto md:flex-col md:gap-2 md:px-0 md:py-3",
                     item.active
@@ -181,9 +182,7 @@ export const Sidebar = memo(function Sidebar({ className }: SidebarProps) {
           })}
         </nav>
 
-        {/* Bottom Section */}
         <div className="flex flex-col gap-2 border-t border-border pt-4">
-          {/* Theme Toggle */}
           <button
             ref={themeButtonRef}
             onClick={toggleSwitchTheme}
