@@ -1,9 +1,12 @@
+"use client";
+import { useState } from "react";
 import { ArrowRightIcon } from "lucide-react";
 import { Button } from "../components/ui/button";
 import SearchAcademy from "../components/search-academy";
 import VideosSection from "../components/videos-section";
 
 export default function Page() {
+  const [searchQuery, setSearchQuery] = useState("");
   return (
     <>
       <div className="w-full h-screen justify-center items-center bg-gray-light">
@@ -30,8 +33,8 @@ export default function Page() {
         </div>
         <div className="px-6 w-full">
           <div className="bg-white w-full h-screen flex flex-col rounded-2xl p-6 gap-4">
-            <SearchAcademy />
-            <VideosSection />
+            <SearchAcademy onSearchChange={setSearchQuery} />
+            <VideosSection searchQuery={searchQuery} />
           </div>
         </div>
       </div>

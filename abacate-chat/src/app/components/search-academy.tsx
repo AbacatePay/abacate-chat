@@ -1,16 +1,17 @@
-import { CreditCard, Settings, User } from "lucide-react";
+"use client";
+import { useState } from "react";
 import {
   Command,
-  CommandEmpty,
-  CommandGroup,
   CommandInput,
-  CommandItem,
-  CommandList,
-  CommandSeparator,
-  CommandShortcut,
 } from "./ui/command";
 
-export default function SearchAcademy() {
+interface SearchAcademyProps {
+  onSearchChange: (query: string) => void;
+}
+
+export default function SearchAcademy({ onSearchChange }: SearchAcademyProps) {
+  const [searchQuery, setSearchQuery] = useState("");
+
   return (
     <div className="">
       <h2 className="text-lg font-medium text-gray-search mb-4">
@@ -20,6 +21,11 @@ export default function SearchAcademy() {
         <CommandInput
           placeholder="Pesquisar"
           className="text-gray-search placeholder-gray-search border-none "
+          value={searchQuery}
+          onValueChange={(value) => {
+            setSearchQuery(value);
+            onSearchChange(value);
+          }}
         />
         {/* <CommandList className="p-4">
           <CommandEmpty>No results found.</CommandEmpty>

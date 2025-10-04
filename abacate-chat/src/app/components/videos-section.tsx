@@ -2,6 +2,10 @@
 import { useState } from "react";
 import { InterfaceVideo, videos } from "../services/videos";
 
+interface VideosSectionProps {
+  searchQuery?: string;
+}
+
 const tabs = [
   {
     id: "todos",
@@ -30,15 +34,19 @@ const tabs = [
   },
 ];
 
-export default function VideosSection() {
+export default function VideosSection({ searchQuery = "" }: VideosSectionProps) {
   const [selectedTab, setSelectedTab] = useState("vibe-code");
   const [selectedVideo, setSelectedVideo] = useState<InterfaceVideo | null>(
     null
   );
 
-  const filteredVideos = videos.filter(
-    (video) => selectedTab === "todos" || video.category.includes(selectedTab)
-  );
+  const filteredVideos = videos.filter((video) => {
+    const matchesTab = selectedTab === "todos" || video.category.includes(selectedTab);
+    const matchesSearch = searchQuery === "" || 
+      video.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      video.category.some(cat => cat.toLowerCase().includes(searchQuery.toLowerCase()));
+    return matchesTab && matchesSearch;
+  });
 
   const getYouTubeId = (url: string): string => {
     const regExp =
