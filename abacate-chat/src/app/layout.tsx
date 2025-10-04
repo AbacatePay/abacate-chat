@@ -9,7 +9,7 @@ const fustat = Fustat({ subsets: ["latin"] });
 export const metadata: Metadata = {
   metadataBase: new URL("https://chat.abacatepay.com"),
   title: {
-    default: "Abacate Chat - Assistente Virtual AbacatePay",
+    default: "AbacateChat - Assistente Virtual AbacatePay",
     template: "%s | AbacatePay",
   },
   description:
@@ -30,10 +30,10 @@ export const metadata: Metadata = {
   creator: "AbacatePay",
   publisher: "AbacatePay",
   openGraph: {
-    title: "Abacate Chat - Assistente Virtual AbacatePay",
+    title: "AbacateChat - Assistente Virtual AbacatePay",
     description:
       "Assistente virtual inteligente da AbacatePay. Tire dúvidas sobre nossa plataforma de pagamentos, APIs, SDKs e integração com sistema PIX.",
-    siteName: "Abacate Chat",
+    siteName: "AbacateChat",
     locale: "pt_BR",
     type: "website",
     url: "https://chat.abacatepay.com",
@@ -42,13 +42,13 @@ export const metadata: Metadata = {
         url: "/opengraph-image.jpeg",
         width: 1200,
         height: 630,
-        alt: "Abacate Chat - Assistente Virtual AbacatePay",
+        alt: "AbacateChat - Assistente Virtual AbacatePay",
       },
     ],
   },
   twitter: {
     card: "summary_large_image",
-    title: "Abacate Chat - Assistente Virtual AbacatePay",
+    title: "AbacateChat - Assistente Virtual AbacatePay",
     description:
       "Assistente virtual inteligente da AbacatePay. Tire dúvidas sobre nossa plataforma de pagamentos.",
     images: ["/opengraph-image.jpeg"],

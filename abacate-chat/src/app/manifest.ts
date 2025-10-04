@@ -2,8 +2,8 @@ import type { MetadataRoute } from "next";
 
 export default function manifest(): MetadataRoute.Manifest {
   return {
-    name: "Abacate Chat - Assistente Virtual AbacatePay",
-    short_name: "Abacate Chat",
+    name: "AbacateChat - Assistente Virtual AbacatePay",
+    short_name: "AbacateChat",
     description:
       "Assistente virtual inteligente da AbacatePay. Tire dúvidas sobre nossa plataforma de pagamentos, APIs, SDKs e integração com sistema PIX.",
     start_url: "/",
