@@ -32,7 +32,9 @@ const tabs = [
 
 export default function VideosSection() {
   const [selectedTab, setSelectedTab] = useState("vibe-code");
-  const [selectedVideo, setSelectedVideo] = useState<InterfaceVideo | null>(null);
+  const [selectedVideo, setSelectedVideo] = useState<InterfaceVideo | null>(
+    null
+  );
 
   const filteredVideos = videos.filter(
     (video) => selectedTab === "todos" || video.category.includes(selectedTab)
@@ -89,27 +91,27 @@ export default function VideosSection() {
       </div>
       <div className="mt-6">
         {selectedVideo ? (
-          <div className="w-full">
-            <div className="relative w-full h-0 pb-[56.25%] bg-black rounded-lg overflow-hidden">
+          <div className="w-full flex flex-col h-96">
+            <div className="flex flex-col items-center justify-center w-1/2 h-5/6 rounded-lg">
               <iframe
-                className="absolute top-0 left-0 w-full h-full"
+                className="w-full rounded-lg h-full"
                 src={`https://www.youtube.com/embed/${selectedVideo.youtubeId}?autoplay=1`}
                 title={selectedVideo.title}
                 frameBorder="0"
                 allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                 allowFullScreen
               />
-            </div>
-            <div className="mt-4 flex items-center justify-between">
-              <h3 className="text-lg font-semibold text-[#0A1B39]">
-                {selectedVideo.title}
-              </h3>
-              <button
-                onClick={() => setSelectedVideo(null)}
-                className="px-4 py-2 text-sm text-[#6A7085] hover:text-[#0A1B39] transition-colors"
-              >
-                ← Back to videos
-              </button>
+              <div className="mt-4 flex items-center justify-between w-full">
+                <h3 className="text-lg font-semibold text-[#0A1B39]">
+                  {selectedVideo.title}
+                </h3>
+                <button
+                  onClick={() => setSelectedVideo(null)}
+                  className="px-4 py-2 text-sm text-[#6A7085] hover:text-[#0A1B39] transition-colors cursor-pointer"
+                >
+                  ← Back to videos
+                </button>
+              </div>
             </div>
           </div>
         ) : (
