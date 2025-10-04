@@ -1,0 +1,93 @@
+---
+description: Use React rules when building UI to produce maintainable components
+globs: src/**/*.tsx
+alwaysApply: false
+---
+
+# React Rules
+
+<version>1.0.0</version>
+
+## Context
+
+- For developing React components within Next.js using React 19
+- Emphasizes modern patterns, performance, and maintainability
+- Ensures proper component architecture and state management
+
+## Requirements
+
+### Component Architecture
+
+- Use explicit imports instead of `import * as React from "react"`
+- Implement proper component composition and separation of concerns
+- Extract reusable logic into custom hooks
+- Set `displayName` on complex components and contexts for better debugging
+
+### React 19 Patterns
+
+- Client components must start with `"use client"` directive at the top
+- Server components require no directive; use `"use server"` for server actions
+- Pass `ref` as standard prop in React 19; `forwardRef` is deprecated
+- Use modern patterns for better performance and developer experience
+
+### JSX and Rendering
+
+- Use `{condition ? <Element /> : null}` for conditional rendering; avoid `&&`
+- Destructure props and state for improved readability
+- Use proper boolean props syntax (e.g., `<Button disabled />`)
+- Avoid using array index as key; prefer stable, unique identifiers
+
+### State Management
+
+- Keep `useState` naming consistent (e.g., `[count, setCount]`)
+- Use lazy initialization for expensive initial state computations
+- Avoid calling state setters in `useEffect` without proper guards
+- Implement functional updates for state that depends on previous state
+
+### Performance Optimization
+
+- Use `useCallback`/`React.memo`/`useMemo` only when performance benefits are measured
+- Define default props as constants outside component to prevent re-renders
+- Avoid inline object/array literals as default props
+- Extract nested components to prevent unnecessary re-renders
+
+### Side Effects and Cleanup
+
+- Clean up side effects in `useEffect` (timers, listeners, subscriptions)
+- Provide proper dependency arrays for hooks
+- Handle component unmounting gracefully
+- Use `useCallback` with stable dependencies for event handlers
+
+### Security and Best Practices
+
+- Avoid direct DOM manipulation (`findDOMNode`, direct element access)
+- Never use `dangerouslySetInnerHTML` unless absolutely necessary
+- Use `rel="noreferrer noopener"` with `target="_blank"` links
+- Implement proper error boundaries for component trees
+
+### Custom Hooks
+
+- Custom hooks must call at least one React hook
+- Follow naming convention with `use` prefix
+- Encapsulate related state logic and side effects
+- Return consistent interfaces from custom hooks
+
+<example>
+  import { useCallback } from "react";
+
+function ProductPage({ productId }) {
+const handleSubmit = useCallback(() => {
+post("/product/" + productId + "/buy");
+}, [productId]);
+
+    return <ShippingForm onSubmit={handleSubmit} />;
+
+}
+</example>
+
+<example type="invalid">
+  // Missing dependencies => new function on every render
+  const handleClick = useCallback(() => {
+    // ...
+  });
+</example>

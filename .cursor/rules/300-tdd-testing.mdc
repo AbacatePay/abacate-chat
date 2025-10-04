@@ -1,0 +1,130 @@
+---
+description: Apply TDD practices when developing features to ensure reliable, maintainable, and well-tested code
+globs: **/*.{test,spec}.{ts,tsx}
+alwaysApply: false
+---
+
+# Test-Driven Development (TDD)
+
+## Context
+
+- Applies to all feature development and component creation
+- Follows Red-Green-Refactor TDD cycle
+- Ensures comprehensive test coverage and reliable code
+
+## Requirements
+
+### TDD Workflow
+
+- Write failing tests first (Red phase)
+- Write minimal code to make tests pass (Green phase)
+- Refactor code while maintaining passing tests (Refactor phase)
+- Maintain test coverage above 80% for critical paths
+
+### Testing Strategy
+
+- Unit tests for individual functions and components
+- Integration tests for component interactions and data flow
+- End-to-end tests for critical user journeys
+- Visual regression tests for UI components
+
+### React Testing Patterns
+
+- Test user behavior, not implementation details
+- Use React Testing Library for component testing
+- Mock external dependencies and API calls
+- Test accessibility features and keyboard navigation
+
+### Test Organization
+
+- Co-locate tests with source files when possible
+- Use descriptive test names that explain expected behavior
+- Group related tests with `describe` blocks
+- Follow AAA pattern: Arrange, Act, Assert
+
+### Performance Testing
+
+- Test component rendering performance with large datasets
+- Verify proper cleanup of effects and event listeners
+- Test memory leaks in long-running components
+- Benchmark critical performance paths
+
+## Examples
+
+<example>
+  // TDD approach for a custom hook
+  describe('useCounter', () => {
+    it('should initialize with default value', () => {
+      const { result } = renderHook(() => useCounter())
+      expect(result.current.count).toBe(0)
+    })
+
+    it('should increment count when increment is called', () => {
+      const { result } = renderHook(() => useCounter())
+
+      act(() => {
+        result.current.increment()
+      })
+
+      expect(result.current.count).toBe(1)
+    })
+
+    it('should decrement count when decrement is called', () => {
+      const { result } = renderHook(() => useCounter(5))
+
+      act(() => {
+        result.current.decrement()
+      })
+
+      expect(result.current.count).toBe(4)
+    })
+
+})
+
+// Component testing with user interactions
+describe('LoginForm', () => {
+it('should submit form with valid credentials', async () => {
+const mockSubmit = vi.fn()
+render(<LoginForm onSubmit={mockSubmit} />)
+
+      const emailInput = screen.getByLabelText(/email/i)
+      const passwordInput = screen.getByLabelText(/password/i)
+      const submitButton = screen.getByRole('button', { name: /sign in/i })
+
+      await user.type(emailInput, 'test@example.com')
+      await user.type(passwordInput, 'password123')
+      await user.click(submitButton)
+
+      expect(mockSubmit).toHaveBeenCalledWith({
+        email: 'test@example.com',
+        password: 'password123'
+      })
+    })
+
+    it('should show validation errors for invalid input', async () => {
+      render(<LoginForm onSubmit={vi.fn()} />)
+
+      const submitButton = screen.getByRole('button', { name: /sign in/i })
+      await user.click(submitButton)
+
+      expect(screen.getByText(/email is required/i)).toBeInTheDocument()
+      expect(screen.getByText(/password is required/i)).toBeInTheDocument()
+    })
+
+})
+</example>
+
+<example type="invalid">
+  // Testing implementation details instead of behavior
+  test('should call useState with initial value', () => {
+    const useStateSpy = vi.spyOn(React, 'useState')
+    render(<Counter />)
+    expect(useStateSpy).toHaveBeenCalledWith(0)
+  })
+
+// Shallow, non-descriptive test
+test('component works', () => {
+render(<MyComponent />)
+expect(true).toBe(true)
+})
+</example>

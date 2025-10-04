@@ -1,0 +1,105 @@
+---
+description: Apply design engineering practices when building UI components to ensure scalable, accessible, and maintainable design systems
+globs: src/**/*.{tsx,css}
+alwaysApply: false
+---
+
+# Design Engineering Practices
+
+<version>1.0.0</version>
+
+## Context
+
+- Applies to UI component development and design system implementation
+- Ensures consistent, accessible, and scalable user interfaces
+- Bridges design and engineering through systematic approaches
+
+## Requirements
+
+### Design System Foundation
+
+- Follow 8-point grid system for all spacing (multiples of 8px: 8, 16, 24, 32px)
+- Maintain consistent color palette using CSS custom properties
+- Use semantic design tokens for colors, typography, and spacing
+- Create reusable component variants with consistent APIs
+
+### Component Architecture
+
+- Design components with composition over configuration
+- Implement proper prop interfaces with TypeScript
+- Use compound components for complex UI patterns
+- Provide sensible defaults while maintaining flexibility
+
+### Accessibility Standards
+
+- Include ARIA attributes and semantic HTML by default
+- Support keyboard navigation and focus management
+- Maintain WCAG 2.1 AA compliance for color contrast
+- Test components with screen readers
+
+### Responsive Design
+
+- Implement mobile-first responsive design patterns
+- Use container queries for component-level responsiveness
+- Ensure touch targets meet minimum size requirements (44px)
+- Test across different viewport sizes and devices
+
+### Performance Optimization
+
+- Implement lazy loading for non-critical components
+- Use React.memo strategically for expensive renders
+- Optimize bundle size with tree-shaking friendly exports
+- Implement proper image optimization with Next.js Image
+
+## Examples
+
+<example>
+  // Design system component with proper structure
+  interface ButtonProps {
+    variant?: 'primary' | 'secondary' | 'ghost'
+    size?: 'sm' | 'md' | 'lg'
+    disabled?: boolean
+    children: React.ReactNode
+  }
+
+export function Button({
+variant = 'primary',
+size = 'md',
+disabled = false,
+...props
+}: ButtonProps) {
+return (
+<button
+className={cn(
+// Base styles following 8-point grid
+'inline-flex items-center justify-center rounded-lg font-medium transition-colors',
+'focus:outline-none focus:ring-2 focus:ring-offset-2',
+// Size variants (8-point grid: 32px, 40px, 48px)
+size === 'sm' && 'h-8 px-3 text-sm',
+size === 'md' && 'h-10 px-4 text-base',
+size === 'lg' && 'h-12 px-6 text-lg',
+// Variant styles
+variant === 'primary' && 'bg-primary text-primary-foreground hover:bg-primary/90',
+variant === 'secondary' && 'bg-secondary text-secondary-foreground hover:bg-secondary/80',
+disabled && 'opacity-50 cursor-not-allowed'
+)}
+disabled={disabled}
+{...props}
+/>
+)
+}
+</example>
+
+<example type="invalid">
+  // Poor component design - no design system adherence
+  function Button({ color, padding, onClick }) {
+    return (
+      <button
+        style={{ backgroundColor: color, padding: padding }}
+        onClick={onClick}
+      >
+        Click me
+      </button>
+    )
+  }
+</example>

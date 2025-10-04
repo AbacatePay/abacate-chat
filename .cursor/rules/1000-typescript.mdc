@@ -1,0 +1,84 @@
+---
+description: Enforce strict typing when coding to ensure reliable TypeScript usage
+globs: *.ts
+alwaysApply: false
+---
+
+# TypeScript Rules
+
+<version>1.0.0</version>
+
+## Context
+
+- Applies to TypeScript and JavaScript in modern development
+- Ensures type safety, code quality, and maintainable codebases
+- Promotes functional programming patterns and strict typing
+
+## Requirements
+
+### Type Safety
+
+- Avoid `any` type; use `unknown`, generics, or precise types instead
+- Use `as const` for exact object types and literal type inference
+- Mark immutable component props and data structures as `readonly`
+- Implement proper type guards for runtime type checking
+- Use discriminated unions for complex state management
+
+### Modern JavaScript/TypeScript
+
+- Prefer ESM (`import`/`export`) over CommonJS (`require`/`module.exports`)
+- Use nullish coalescing (`??`) over logical OR (`||`) for null/undefined checks
+- Handle promises properly with `await` or `.then()` - avoid promise anti-patterns
+- Use optional chaining (`?.`) to prevent runtime errors safely
+- Prefer template literals over string concatenation
+
+### Error Handling
+
+- Throw `Error` instances with meaningful messages, not strings or objects
+- Implement proper error boundaries and error handling patterns
+- Use Result/Either types for predictable error handling when appropriate
+- Avoid swallowing errors silently
+
+### Code Quality
+
+- Remove unused variables, imports, and expressions
+- Avoid non-null assertions (`!`) unless absolutely necessary
+- Never use `eval()` or dynamic code execution for security
+- Add explanatory comments for `@ts-ignore` or `@ts-expect-error` usage
+
+### Functional Programming
+
+- Favor functional programming patterns over OOP (except for custom errors)
+- Use immutable data patterns and pure functions when possible
+- Prefer composition over inheritance
+- Use higher-order functions and function composition
+
+### Type Definitions
+
+- Ensure type compatibility for operations (both operands of `+` same type)
+- Use namespaces only for declaration merging; avoid `module` keyword
+- Avoid redundant type annotations where TypeScript can infer types
+- Prefer array literal syntax `[]` over generic array constructors
+- Prevent duplicate values in enums and union types
+
+### Interface Design
+
+- Design clear, composable interfaces with proper generic constraints
+- Use utility types (`Partial`, `Pick`, `Omit`) for type transformations
+- Implement proper branded types for domain-specific values
+- Create discriminated unions for complex state representations
+
+## Examples
+
+<example>
+  function parseData(data: unknown): string | null {
+    if (typeof data === "string") return data;
+    return null;
+  }
+</example>
+
+<example type="invalid">
+  function parseData(data: any): any {
+    return data;
+  }
+</example>
