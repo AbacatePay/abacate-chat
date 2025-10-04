@@ -49,7 +49,7 @@ export function VideosGrid() {
           ))}
         </div>
       ) : (
-        <div className="flex flex-col items-center justify-center py-12 text-center">
+        <div className="flex flex-col items-center py-24 justify-center text-center">
           <p className="text-lg font-semibold text-foreground">
             Nenhum vídeo encontrado
           </p>
