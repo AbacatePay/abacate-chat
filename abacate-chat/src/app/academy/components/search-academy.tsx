@@ -19,7 +19,7 @@ export function SearchAcademy({ onSearchChange }: SearchAcademyProps) {
     <Command className="h-12 rounded-lg border border-border shadow-none">
       <CommandInput
         placeholder="Pesquisar vídeos, tutoriais..."
-        className="border-none text-foreground placeholder:text-soft-400"
+        className="border-none text-foreground"
         value={searchQuery}
         onValueChange={handleSearchChange}
       />
