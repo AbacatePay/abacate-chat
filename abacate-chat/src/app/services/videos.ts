@@ -36,4 +36,10 @@ export const videos: InterfaceVideo[] = [
     youtubeId: "eOctEl8XfW0",
     category: ["all", "conceitos"],
   },
+  {
+    id: "6",
+    title: "Entenda Gateway de pagamentos em 5 min - Abacatepay",
+    youtubeId: "_LR4uLO-yL0",
+    category: ["all", "conceitos"],
+  },
 ];
