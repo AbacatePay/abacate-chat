@@ -30,7 +30,7 @@ const SegmentedControlList = React.forwardRef<
     <TabsPrimitive.List
       ref={mergeRefs(forwardedRef, listRef)}
       className={cn(
-        "relative isolate flex w-full gap-1 rounded-full bg-weak-50 p-1 border border-border",
+        "relative isolate flex w-fit gap-1 rounded-full bg-weak-50 p-1 border border-border",
         className
       )}
       {...rest}

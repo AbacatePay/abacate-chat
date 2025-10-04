@@ -31,9 +31,9 @@ const tabs: Tab[] = [
 
 export function VideoFilters({ selectedTab, onTabChange }: VideoFiltersProps) {
   return (
-    <div className="w-full overflow-x-auto scrollbar-hide md:max-w-2xl">
+    <div className="w-full overflow-x-auto scrollbar-hide">
       <SegmentedControl.Root value={selectedTab} onValueChange={onTabChange}>
-        <SegmentedControl.List className="min-w-max md:min-w-0">
+        <SegmentedControl.List>
           {tabs.map((tab) => {
             const Icon = tab.icon;
             return (
