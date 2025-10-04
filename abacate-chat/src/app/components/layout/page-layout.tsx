@@ -60,8 +60,8 @@ export function PageLayout({
           </header>
         )}
 
-        <div className={cn("flex flex-1 flex-col overflow-auto", className)}>
-          {children}
+        <div className="flex flex-1 flex-col overflow-auto">
+          <div className={cn("flex-1", className)}>{children}</div>
           <Footer />
         </div>
       </main>
