@@ -8,7 +8,7 @@
   --color-abacate-200: #bce4bc;
   --color-abacate-300: #8dd08d;
   --color-abacate-400: #5bb55b;
-  --color-abacate-500: #89BA4F;
+  --color-abacate-500: #89ba4f;
   --color-abacate-600: #6ba03f;
   --color-abacate-700: #548033;
   --color-abacate-800: #45652a;
@@ -16,16 +16,16 @@
   --color-abacate-950: #1d2e12;
 
   /*Color green*/
-  --color-green-abc: #9EEA6C;
+  --color-green-abc: #9eea6c;
 
   /*Color gray*/
-  --color-gray-light: #F6F8FA;
-  --color-gray-border: #E2E7F2;
-  --color-gray-text: #4C5267;
+  --color-gray-light: #f6f8fa;
+  --color-gray-border: #e2e7f2;
+  --color-gray-text: #4c5267;
   --color-gray-dark: #121217;
-  --color-gray-placeholder: #7A7A8C;
+  --color-gray-placeholder: #7a7a8c;
   --color-gray-text: #485066;
-  --color-gray-search: #8A8AA3;
+  --color-gray-search: #8a8aa3;
 
   /*Color code*/
   --color-code-dark: #181818;
@@ -73,7 +73,7 @@
 
   /* Chatbot colors */
   --chat-background: #ffffff;
-  --user-message: #9EEA6C;
+  --user-message: #9eea6c;
   --user-message-foreground: #000000;
   --bot-message: #f5f5f5;
   --bot-message-foreground: #000000;
@@ -82,7 +82,7 @@
 }
 
 .dark {
-  --background: #1A1A19;
+  --background: #1a1a19;
   --foreground: #ffffff;
 
   --card: #141414;
@@ -118,7 +118,7 @@
 
   /* Chatbot colors for dark mode */
   --chat-background: #0f0f0f;
-  --user-message: #9EEA6C;
+  --user-message: #9eea6c;
   --user-message-foreground: #000000;
   --bot-message: #1f1f1f;
   --bot-message-foreground: #f2f2f2;
@@ -126,10 +126,141 @@
   --chat-input-border: #252525;
 }
 
-body {
-  background-color: var(--background);
-  color: var(--primary);
-  transition: background-color 0.3s ease, color 0.3s ease;
+/* ---------------------------------------------------------------------------- */
+/* Base Layer: Reset and Foundation Styles */
+/* ---------------------------------------------------------------------------- */
+@layer base {
+  *,
+  *::before,
+  *::after {
+    box-sizing: border-box;
+    border-width: 0;
+    border-style: solid;
+    border-color: var(--border);
+  }
+
+  *,
+  *:focus,
+  *:hover {
+    outline: none;
+  }
+
+  *:not(
+      svg,
+      path,
+      g,
+      circle,
+      ellipse,
+      line,
+      polygon,
+      polyline,
+      rect,
+      text,
+      tspan,
+      use
+    ),
+  *::before,
+  *::after {
+    min-width: 0;
+  }
+
+  /* Prevent SVG elements from being affected by min-width reset */
+  svg,
+  path,
+  g,
+  circle,
+  ellipse,
+  line,
+  polygon,
+  polyline,
+  rect,
+  text,
+  tspan,
+  use {
+    min-width: auto;
+  }
+
+  html {
+    height: 100%;
+    scroll-behavior: smooth;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
+  }
+
+  body {
+    width: 100%;
+    max-width: 100dvw;
+    height: 100%;
+    min-height: 100dvh;
+    overflow-x: hidden;
+    color: var(--foreground);
+    background-color: var(--background);
+    font-size: 0.875rem;
+    line-height: 1.25rem;
+    -webkit-font-smoothing: antialiased;
+    transition: background-color 0.3s ease, color 0.3s ease;
+    text-rendering: optimizeLegibility;
+    overscroll-behavior: none;
+  }
+
+  /* Improve button and interactive elements */
+  button,
+  [role="button"] {
+    cursor: pointer;
+    user-select: none;
+  }
+
+  button:disabled,
+  [role="button"][aria-disabled="true"] {
+    cursor: not-allowed;
+    opacity: 0.5;
+  }
+
+  /* Improve form elements */
+  input,
+  textarea,
+  select {
+    font-family: inherit;
+    font-size: inherit;
+    line-height: inherit;
+  }
+
+  input::-webkit-outer-spin-button,
+  input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+  }
+
+  input[type="number"] {
+    -moz-appearance: textfield;
+  }
+
+  /* Improve focus visibility for accessibility */
+  :focus-visible {
+    outline: 2px solid var(--ring);
+    outline-offset: 2px;
+  }
+
+  /* Prevent text selection on UI elements */
+  .no-select {
+    user-select: none;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+  }
+
+  /* Improve image rendering */
+  img {
+    display: block;
+    max-width: 100%;
+    height: auto;
+  }
+
+  /* Improve anchor tags */
+  a {
+    color: inherit;
+    text-decoration: inherit;
+  }
 }
 
 /* ---------------------------------------------------------------------------- */
@@ -151,8 +282,11 @@ body {
   .rainbow-border {
     position: relative;
     border: double 2px transparent;
-    background-image: linear-gradient(var(--chat-background), var(--chat-background)), 
-      linear-gradient(to right, #FF5858, #B345D5, #FF8B28, #D9A1F1);
+    background-image: linear-gradient(
+        var(--chat-background),
+        var(--chat-background)
+      ),
+      linear-gradient(to right, #ff5858, #b345d5, #ff8b28, #d9a1f1);
     background-origin: border-box;
   }
 
@@ -168,7 +302,7 @@ body {
     -ms-overflow-style: none;
     scrollbar-width: none;
   }
-  
+
   .scrollbar-hide::-webkit-scrollbar {
     display: none;
   }
