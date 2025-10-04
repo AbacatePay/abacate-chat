@@ -30,6 +30,7 @@ export const InitialChat = forwardRef<MainInputRef, InitialChatProps>(({
           initialValue={initialValue}
         />
       </div>
+      
     </div>
   );
 });

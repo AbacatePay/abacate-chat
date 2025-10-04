@@ -74,7 +74,7 @@ const MainInput = forwardRef<MainInputRef, MainInputProps>(({
     <div
     className="
       flex flex-col w-full max-w-3xl rounded-2xl h-full
-      bg-[var(--chat-input)] border-1 border-[var(--chat-input-border)]
+      bg-[var(--chat-input)] border-[var(--chat-input-border)]
       border-1 border-primary 
       hover:not-focus-within:border-green-abc hover:not-focus-within:shadow-[0_0_6px_theme(colors.green-abc)]
       focus-within:ring-1 focus-within:ring-green-abc

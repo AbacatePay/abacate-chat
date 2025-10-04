@@ -5,7 +5,7 @@ import { useChat } from "../hooks/use-chat";
 import { ChatMessage } from "./ChatMessage";
 import MainInput, { MainInputRef } from "@/app/components/MainInput";
 import VideoCarousel from "./VideoCarousel";
-
+import { ArrowRightIcon } from "lucide-react";
 
 export function ChatInterfaceV2({ initialQuery }: { initialQuery: string }) {
   const {
@@ -14,7 +14,7 @@ export function ChatInterfaceV2({ initialQuery }: { initialQuery: string }) {
     setInputValue,
     isLoading,
     isFirstMessage,
-    sendMessage,  
+    sendMessage,
   } = useChat();
   const messagesEndRef = useRef<HTMLDivElement>(null);
   const initialChatInputRef = useRef<MainInputRef>(null);
@@ -22,7 +22,7 @@ export function ChatInterfaceV2({ initialQuery }: { initialQuery: string }) {
 
   const handleLanguageSelect = (selectedPrompt: string) => {
     setInputValue(selectedPrompt);
-    
+
     if (isFirstMessage) {
       initialChatInputRef.current?.focus();
     } else {
@@ -36,20 +36,23 @@ export function ChatInterfaceV2({ initialQuery }: { initialQuery: string }) {
     }
   }, [initialQuery, setInputValue]);
 
-
   const firstMessageComponent = () => {
     return (
       <div className="flex flex-col h-full overflow-y-auto overflow-x-hidden invisible-scrollbar">
         <div className="md:min-h-[75vh] min-h-[70vh] flex flex-col gap-8 items-center justify-center ">
           <InitialChat
-          ref={initialChatInputRef}
+            ref={initialChatInputRef}
             value={inputValue}
             onChange={setInputValue}
             onSubmit={sendMessage}
             isLoading={false}
-            initialValue={initialQuery} 
+            initialValue={initialQuery}
           />
           <ButtonsLanguageSelect onSelect={handleLanguageSelect} />
+          <a href="/academy" className="rounded-full border-[var(--chat-input-border)] border text-primary px-6 py-2 hover:bg-[var(--secondary)] hover:text-hover-secondary-foreground font-bold flex items-center gap-2 cursor-pointer transition-colors duration-200">
+            Ir para Abacademy
+            <ArrowRightIcon size={16} />
+          </a>
         </div>
       </div>
     );
