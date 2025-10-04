@@ -1,9 +1,6 @@
 "use client";
 import { useState } from "react";
-import {
-  Command,
-  CommandInput,
-} from "./ui/command";
+import { Command, CommandInput } from "./ui/command";
 
 interface SearchAcademyProps {
   onSearchChange: (query: string) => void;
@@ -13,10 +10,7 @@ export default function SearchAcademy({ onSearchChange }: SearchAcademyProps) {
   const [searchQuery, setSearchQuery] = useState("");
 
   return (
-    <div className="">
-      <h2 className="text-lg font-medium text-gray-search mb-4">
-        Vídeos, tutoriais, artigos, repositórios e mais.
-      </h2>
+    <div>
       <Command className="rounded-lg border border-gray-border shadow-none h-[40px] text-center justify-center data-[disabled=true]">
         <CommandInput
           placeholder="Pesquisar"
