@@ -30,7 +30,7 @@ const SegmentedControlList = React.forwardRef<
     <TabsPrimitive.List
       ref={mergeRefs(forwardedRef, listRef)}
       className={cn(
-        "relative isolate grid w-full auto-cols-fr grid-flow-col gap-1 rounded-full bg-weak-50 p-1 border border-border",
+        "relative isolate flex w-full gap-1 rounded-full bg-weak-50 p-1 border border-border",
         className
       )}
       {...rest}
@@ -68,8 +68,8 @@ const SegmentedControlTrigger = React.forwardRef<
       className={cn(
         // base
         "peer",
-        "relative z-10 h-8 whitespace-nowrap rounded-full px-4 py-2 text-sm font-semibold outline-none",
-        "flex items-center justify-center gap-2",
+        "relative z-10 h-8 flex-shrink-0 whitespace-nowrap rounded-full px-4 py-2 text-sm font-semibold outline-none",
+        "flex items-center justify-center gap-1.5",
         "transition-colors duration-200",
         // focus
         "focus:outline-none",
