@@ -43,6 +43,11 @@ const videos: Video[] = [
 
 const tabs = [
   {
+    id: "todos",
+    label: "todos",
+    icon: null,
+  },
+  {
     id: "vibe-code",
     label: "vibe-code",
     icon: null,
