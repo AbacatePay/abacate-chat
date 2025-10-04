@@ -2,11 +2,15 @@
 
 import { usePathname, useRouter } from "next/navigation";
 import Image from "next/image";
-import { MessageSquare, GraduationCap, Plus, Menu, X } from "lucide-react";
+import { MessageSquare, GraduationCap, Menu, X } from "lucide-react";
 import { useTheme } from "../theme/theme-provider";
 import { MoonIcon, SunIcon } from "lucide-react";
 import { useState } from "react";
 import { cn } from "../lib/utils";
+import {
+  useModeAnimation,
+  ThemeAnimationType,
+} from "@/app/hooks/use-mode-animation";
 
 interface SidebarProps {
   className?: string;
@@ -17,6 +21,13 @@ export function Sidebar({ className }: SidebarProps) {
   const router = useRouter();
   const { theme, toggleTheme } = useTheme();
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+
+  const { ref: themeButtonRef, toggleSwitchTheme } = useModeAnimation({
+    isDarkMode: theme === "dark",
+    onDarkModeChange: () => toggleTheme(),
+    animationType: ThemeAnimationType.CIRCLE,
+    duration: 500,
+  });
 
   const navItems = [
     {
@@ -69,7 +80,7 @@ export function Sidebar({ className }: SidebarProps) {
       {/* Sidebar */}
       <aside
         className={cn(
-          "flex h-screen flex-col border-r border-border bg-card",
+          "flex h-screen flex-col border-r border-border bg-background",
           // Mobile: full sidebar with text labels on the side
           "fixed left-0 top-0 z-40 w-[90vw] max-w-xs px-4 py-6 transition-all duration-300",
           isMobileMenuOpen ? "translate-x-0" : "-translate-x-full",
@@ -94,65 +105,50 @@ export function Sidebar({ className }: SidebarProps) {
           </span>
         </div>
 
-        {/* New Chat Button */}
-        <button
-          onClick={() => handleNavigation("/")}
-          className={cn(
-            "mb-8 flex items-center gap-3 rounded-xl transition-all duration-200",
-            // Mobile: full width with text on side
-            "w-full px-4 py-3 hover:bg-accent",
-            // Desktop: compact with icon and text below
-            "md:w-auto md:flex-col md:gap-2 md:px-0 md:py-3"
-          )}
-        >
-          <div className="flex h-12 w-12 flex-shrink-0 items-center justify-center rounded-xl bg-primary text-primary-foreground transition-all duration-200 hover:scale-105 hover:shadow-lg">
-            <Plus className="h-5 w-5" />
-          </div>
-          <span className="text-sm font-medium text-foreground md:text-xs">
-            Nova Conversa
-          </span>
-        </button>
-
         {/* Navigation Items */}
         <nav className="flex flex-1 flex-col gap-2">
           {navItems.map((item) => {
             const Icon = item.icon;
             return (
-              <button
-                key={item.href}
-                onClick={() => handleNavigation(item.href)}
-                className={cn(
-                  "flex items-center gap-3 rounded-xl transition-all duration-200",
-                  // Mobile: full width with text on side
-                  "w-full px-4 py-3",
-                  // Desktop: compact with icon and text below
-                  "md:w-auto md:flex-col md:gap-2 md:px-0 md:py-3",
-                  "hover:bg-accent",
-                  item.active && "bg-accent"
+              <div key={item.href} className="relative">
+                {/* Active Indicator - Mobile */}
+                {item.active && (
+                  <div className="absolute left-0 top-1/2 h-8 w-1 -translate-y-1/2 rounded-r-full bg-primary md:hidden" />
                 )}
-              >
-                <div
+                <button
+                  onClick={() => handleNavigation(item.href)}
                   className={cn(
-                    "flex h-12 w-12 flex-shrink-0 items-center justify-center rounded-xl transition-colors",
+                    "flex w-full items-center gap-1 rounded-xl transition-all duration-200",
+                    // Mobile: full width with text on side
+                    "px-4 py-3",
+                    // Desktop: compact with icon and text below
+                    "md:w-auto md:flex-col md:gap-2 md:px-0 md:py-3",
                     item.active
-                      ? "text-accent-foreground"
-                      : "text-muted-foreground"
+                      ? "bg-accent text-accent-foreground opacity-100"
+                      : "opacity-70 hover:opacity-100 hover:bg-accent/50"
                   )}
                 >
-                  <Icon className="h-5 w-5" />
-                </div>
-                <span
-                  className={cn(
-                    "font-medium md:text-xs",
-                    "text-sm md:text-center",
-                    item.active
-                      ? "text-accent-foreground"
-                      : "text-muted-foreground"
-                  )}
-                >
-                  {item.label}
-                </span>
-              </button>
+                  <div
+                    className={cn(
+                      "flex h-8 w-12 flex-shrink-0 items-center justify-center rounded-xl transition-all duration-200",
+                      item.active
+                        ? "bg-primary/10 text-primary"
+                        : "text-foreground"
+                    )}
+                  >
+                    <Icon className="h-5 w-5" />
+                  </div>
+                  <span
+                    className={cn(
+                      "font-medium md:text-xs text-foreground",
+                      "text-sm md:text-center",
+                      item.active && "font-semibold"
+                    )}
+                  >
+                    {item.label}
+                  </span>
+                </button>
+              </div>
             );
           })}
         </nav>
@@ -161,22 +157,23 @@ export function Sidebar({ className }: SidebarProps) {
         <div className="flex flex-col gap-2 border-t border-border pt-4">
           {/* Theme Toggle */}
           <button
-            onClick={toggleTheme}
+            ref={themeButtonRef}
+            onClick={toggleSwitchTheme}
             className={cn(
               "flex items-center gap-3 rounded-xl transition-all duration-200",
-              "w-full px-4 py-3 hover:bg-accent",
+              "w-full px-4 py-3 opacity-70 hover:opacity-100 hover:bg-accent",
               "md:w-auto md:flex-col md:gap-2 md:px-0 md:py-3"
             )}
             aria-label="Toggle theme"
           >
-            <div className="flex h-12 w-12 flex-shrink-0 items-center justify-center rounded-xl text-muted-foreground transition-colors">
+            <div className="flex h-12 w-12 flex-shrink-0 items-center justify-center rounded-xl text-foreground transition-colors">
               {theme === "dark" ? (
                 <SunIcon className="h-5 w-5" />
               ) : (
                 <MoonIcon className="h-5 w-5" />
               )}
             </div>
-            <span className="text-sm font-medium text-muted-foreground md:text-xs md:text-center">
+            <span className="text-sm font-medium text-foreground md:text-xs md:text-center">
               {theme === "dark" ? "Modo Claro" : "Modo Escuro"}
             </span>
           </button>
@@ -188,7 +185,7 @@ export function Sidebar({ className }: SidebarProps) {
             rel="noopener noreferrer"
             className={cn(
               "flex items-center gap-3 rounded-xl transition-all duration-200",
-              "w-full px-4 py-3 hover:bg-accent",
+              "w-full px-4 py-3 opacity-70 hover:opacity-100 hover:bg-accent",
               "md:w-auto md:flex-col md:gap-2 md:px-0 md:py-3"
             )}
             aria-label="Plataforma AbacatePay"
@@ -196,7 +193,7 @@ export function Sidebar({ className }: SidebarProps) {
             <div className="flex h-12 w-12 flex-shrink-0 items-center justify-center rounded-full bg-abacate-500">
               <span className="text-sm font-bold text-white">N</span>
             </div>
-            <span className="text-sm font-medium text-muted-foreground md:text-xs md:text-center">
+            <span className="text-sm font-medium text-foreground md:text-xs md:text-center">
               Plataforma
             </span>
           </a>
