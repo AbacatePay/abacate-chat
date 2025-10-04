@@ -1,45 +1,6 @@
 "use client";
 import { useState } from "react";
-
-interface Video {
-  id: string;
-  title: string;
-  youtubeId: string;
-  category: string[];
-}
-
-const videos: Video[] = [
-  {
-    id: "1",
-    title: "Como integrar com Bubble.io",
-    youtubeId: "N0WnJexaXbE",
-    category: ["all", "low-code"]
-  },
-  {
-    id: "2", 
-    title: "Como integrar com Lovable",
-    youtubeId: "uC1efuEXD_E",
-    category: ["all", "vibe-code"]
-  },
-  {
-    id: "3",
-    title: "Como integrar com Woocommerce", 
-    youtubeId: "r0cfpxkSfIM",
-    category: ["all", "no-code"]
-  },
-  {
-    id: "4",
-    title: "Como integrar com NextJS",
-    youtubeId: "ZZOJNEzAPQg",
-    category: ["all", "code"]
-  },
-  {
-    id: "5",
-    title: "Como integrar com um SaaS",
-    youtubeId: "eOctEl8XfW0",
-    category: ["all", "conceitos"]
-  }
-];
+import { InterfaceVideo, videos } from "../services/videos";
 
 const tabs = [
   {
@@ -71,16 +32,17 @@ const tabs = [
 
 export default function VideosSection() {
   const [selectedTab, setSelectedTab] = useState("vibe-code");
-  const [selectedVideo, setSelectedVideo] = useState<Video | null>(null);
+  const [selectedVideo, setSelectedVideo] = useState<InterfaceVideo | null>(null);
 
-  const filteredVideos = videos.filter(video => 
-    selectedTab === "todos" || video.category.includes(selectedTab)
+  const filteredVideos = videos.filter(
+    (video) => selectedTab === "todos" || video.category.includes(selectedTab)
   );
 
   const getYouTubeId = (url: string): string => {
-    const regExp = /^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|&v=)([^#&?]*).*/;
+    const regExp =
+      /^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|&v=)([^#&?]*).*/;
     const match = url.match(regExp);
-    return (match && match[2].length === 11) ? match[2] : '';
+    return match && match[2].length === 11 ? match[2] : "";
   };
 
   const getThumbnailUrl = (youtubeId: string): string => {
@@ -139,7 +101,9 @@ export default function VideosSection() {
               />
             </div>
             <div className="mt-4 flex items-center justify-between">
-              <h3 className="text-lg font-semibold text-[#0A1B39]">{selectedVideo.title}</h3>
+              <h3 className="text-lg font-semibold text-[#0A1B39]">
+                {selectedVideo.title}
+              </h3>
               <button
                 onClick={() => setSelectedVideo(null)}
                 className="px-4 py-2 text-sm text-[#6A7085] hover:text-[#0A1B39] transition-colors"
@@ -150,7 +114,7 @@ export default function VideosSection() {
           </div>
         ) : (
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {filteredVideos.map((video) => (
+            {filteredVideos.map((video: InterfaceVideo) => (
               <div
                 key={video.id}
                 className="bg-white rounded-lg border border-[#E2E7F1] overflow-hidden hover:shadow-lg transition-shadow cursor-pointer"
@@ -179,7 +143,9 @@ export default function VideosSection() {
                   </div>
                 </div>
                 <div className="p-4">
-                  <h3 className="font-semibold text-[#0A1B39] line-clamp-2">{video.title}</h3>
+                  <h3 className="font-semibold text-[#0A1B39] line-clamp-2">
+                    {video.title}
+                  </h3>
                 </div>
               </div>
             ))}
