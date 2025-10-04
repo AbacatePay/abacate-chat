@@ -62,6 +62,9 @@
 
   --radius: 0.75rem;
 
+  --popover: #ffffff;
+  --popover-foreground: #000000;
+
   --sidebar-background: #ffffff;
   --sidebar-foreground: #000000;
   --sidebar-primary: #4dd47e;
@@ -106,6 +109,9 @@
   --border: #333333;
   --input: #333333;
   --ring: #4dd47e;
+
+  --popover: #262626;
+  --popover-foreground: #f2f2f2;
 
   --sidebar-background: #141414;
   --sidebar-foreground: #f2f2f2;
@@ -309,6 +315,15 @@
 }
 
 /* ---------------------------------------------------------------------------- */
-/* Optional: Add custom animations or radius if needed */
+/* Animations */
 /* ---------------------------------------------------------------------------- */
-/* You can add keyframes and animation classes here if you use them in your UI */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}

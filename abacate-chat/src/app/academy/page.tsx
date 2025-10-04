@@ -1,43 +1,53 @@
 "use client";
+
 import { useState } from "react";
 import { ArrowRightIcon } from "lucide-react";
 import { Button } from "../components/ui/button";
 import SearchAcademy from "../components/search-academy";
 import VideosSection from "../components/videos-section";
 import Image from "next/image";
+import { AppLayout } from "../components/layout/app-layout";
 
 export default function Page() {
   const [searchQuery, setSearchQuery] = useState("");
+
   return (
-    <>
-      <div className="w-full h-screen justify-center items-center bg-gray-light">
-        <div className="w-full flex justify-between items-center h-20 px-2">
-          <div className="w-full flex gap-1">
+    <AppLayout>
+      <div className="flex h-full w-full flex-col overflow-hidden bg-background">
+        {/* Header */}
+        <header className="flex h-20 w-full items-center justify-between border-b border-border px-6">
+          <div className="flex items-center gap-3">
             <Image
               src="/logo-abacademy.svg"
               alt="Abacademy"
-              className="w-96 h-full"
-              width={20}
-              height={20}
+              className="h-8 w-auto"
+              width={120}
+              height={32}
             />
           </div>
-          <a href="https://abacatepay.com/app">
+          <a
+            href="https://abacatepay.com/app"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
             <Button
               variant="outline"
-              className="border-gray-border text-gray-text shadow-none font-bold bg-[#F7F7F8] cursor-pointer"
+              className="gap-2 font-semibold transition-all hover:scale-105"
             >
-              <p className="text-[16px] font-semibold">Ir pra plataforma</p>
-              <ArrowRightIcon className="w-4 h-4" />
+              Ir pra plataforma
+              <ArrowRightIcon className="h-4 w-4" />
             </Button>
           </a>
-        </div>
-        <div className="px-6 w-full">
-          <div className="bg-white w-full h-screen flex flex-col rounded-2xl p-6 gap-4">
+        </header>
+
+        {/* Content */}
+        <div className="flex flex-1 flex-col overflow-hidden p-6">
+          <div className="flex h-full w-full flex-col gap-4 overflow-hidden rounded-xl border border-border bg-card p-6 shadow-sm">
             <SearchAcademy onSearchChange={setSearchQuery} />
             <VideosSection searchQuery={searchQuery} />
           </div>
         </div>
       </div>
-    </>
+    </AppLayout>
   );
 }
