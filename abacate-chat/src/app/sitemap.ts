@@ -1,10 +1,11 @@
 import type { MetadataRoute } from "next";
+import { videos } from "./services/videos";
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const baseUrl = "https://chat.abacatepay.com";
   const currentDate = new Date();
 
-  return [
+  const staticPages: MetadataRoute.Sitemap = [
     {
       url: baseUrl,
       lastModified: currentDate,
@@ -18,4 +19,13 @@ export default function sitemap(): MetadataRoute.Sitemap {
       priority: 0.8,
     },
   ];
+
+  const videoPages: MetadataRoute.Sitemap = videos.map((video) => ({
+    url: `${baseUrl}/academy/${video.id}`,
+    lastModified: currentDate,
+    changeFrequency: "monthly",
+    priority: 0.6,
+  }));
+
+  return [...staticPages, ...videoPages];
 }
