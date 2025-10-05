@@ -4,9 +4,9 @@ import { ReactNode } from "react";
 
 interface VideoLayoutProps {
   children: ReactNode;
-  params: {
+  params: Promise<{
     slug: string;
-  };
+  }>;
 }
 
 export function generateStaticParams() {
@@ -18,9 +18,10 @@ export function generateStaticParams() {
 export async function generateMetadata({
   params,
 }: {
-  params: { slug: string };
+  params: Promise<{ slug: string }>;
 }): Promise<Metadata> {
-  const video = videos.find((v) => v.id === params.slug);
+  const { slug } = await params;
+  const video = videos.find((v) => v.id === slug);
 
   if (!video) {
     return {
@@ -94,6 +95,6 @@ export async function generateMetadata({
   };
 }
 
-export default function VideoLayout({ children }: VideoLayoutProps) {
+export default async function VideoLayout({ children, params }: VideoLayoutProps) {
   return <>{children}</>;
 }
