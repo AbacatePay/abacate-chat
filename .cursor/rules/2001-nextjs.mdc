@@ -1,0 +1,79 @@
+---
+description: Use these rules when building Next.js projects
+globs: src/**/*.{ts,tsx}, next.config.ts
+alwaysApply: false
+---
+
+# Next.js Rules
+
+<version>1.0.0</version>
+
+## Context
+
+- For building Next.js v15 (App Router) projects with React 19
+- Guides server vs. client component usage and modern patterns
+- Ensures optimal performance and developer experience
+
+## Requirements
+
+### Architecture Patterns
+
+- Use App Router with proper file-system based routing
+- Default `layout.tsx` and `page.tsx` to server components
+- Place client components strategically for interactivity only
+- Implement proper data fetching patterns with server actions
+
+### Component Strategy
+
+- Use client components only for local state, interactivity, or browser APIs
+- Prefer server components for data fetching and static content
+- Implement proper loading states with `loading.tsx` and `<Suspense>`
+- Use Shadcn UI `Skeleton` components for consistent loading UX
+
+### Navigation and Routing
+
+- Use `<Link>` component for navigation instead of `<a>` tags
+- Use `useRouter` only when programmatic navigation is essential
+- Implement proper route protection with middleware
+- Use typed routes for better TypeScript integration
+
+### Data Management
+
+- Prefer server actions over client-side API calls for mutations
+- Implement proper error handling with error boundaries
+- Use React 19's `useActionState` instead of deprecated `useFormState`
+- Configure proper caching strategies for fetch requests
+
+### Performance Optimization
+
+- Maintain Edge Runtime compatibility in middleware (no Node.js APIs)
+- Implement proper image optimization with Next.js Image component
+- Use streaming and progressive enhancement patterns
+- Configure proper headers for security and performance
+
+### Migration Notes (Next.js 15)
+
+- React 19 is required for Next.js 15
+- `ImageResponse` moved from `next/server` to `next/og`
+- Async APIs (`cookies`, `headers`, `draftMode`, `params`) return Promises
+- Fetch requests aren't cached by default; use `cache: "force-cache"` if needed
+- Geo/IP removed from `NextRequest`; use `@vercel/functions`
+- Route Handlers require explicit caching configuration
+
+## Examples
+
+<example>
+  // server component
+  export default async function Page() {
+    const data = await getData(); // server action
+    return <div>{data}</div>;
+  }
+</example>
+
+<example type="invalid">
+  "use client";
+  export default async function Page() {
+    const data = await getData();
+    return <div>{data}</div>;
+  }
+</example>

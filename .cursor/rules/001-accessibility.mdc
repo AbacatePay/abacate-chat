@@ -1,0 +1,79 @@
+---
+description: Enforce accessibility guidelines when building or reviewing UI to ensure inclusive user experiences
+globs: src/**/*.tsx
+alwaysApply: false
+---
+
+# Accessibility (A11y) Standards
+
+<version>1.0.0</version>
+
+## Context
+
+- Ensures all user-facing pages and components meet WCAG 2.1 AA standards
+- Applies to interactions, visual elements, markup structure, and user experience
+- Promotes inclusive design for users with diverse abilities and assistive technologies
+
+## Requirements
+
+### Keyboard Navigation
+
+- Provide full keyboard navigation support for all interactive elements
+- Implement visible focus indicators with sufficient contrast (3:1 minimum)
+- Ensure logical tab order that matches visual layout
+- Support standard keyboard shortcuts and escape mechanisms
+- Handle focus management in modals and dynamic content
+
+### Semantic HTML
+
+- Use proper heading hierarchy (h1-h6) for content structure
+- Implement semantic landmarks (nav, main, aside, footer)
+- Use appropriate list elements (ul, ol, dl) for grouped content
+- Apply correct input types and form element associations
+- Utilize semantic HTML5 elements over generic divs when possible
+
+### ARIA Implementation
+
+- Include ARIA attributes when semantic HTML is insufficient
+- Use ARIA labels for complex interactive components
+- Implement ARIA live regions for dynamic content updates
+- Apply proper ARIA roles for custom components
+- Ensure ARIA attributes are correctly associated and functional
+
+### Visual Accessibility
+
+- Maintain WCAG 2.1 AA color contrast ratios (4.5:1 for normal text, 3:1 for large text)
+- Ensure information is not conveyed by color alone
+- Support user preferences for reduced motion and high contrast
+- Implement scalable text that works up to 200% zoom
+- Provide alternative text for all meaningful images
+
+### Form Accessibility
+
+- Associate all form fields with descriptive labels or aria-label
+- Group related form fields with fieldset and legend elements
+- Provide clear error messages and validation feedback
+- Implement proper form submission and error handling
+- Support form auto-completion where appropriate
+
+### Content Structure
+
+- Use consistent navigation patterns and skip links
+- Implement clear page titles and headings
+- Provide alternative formats for complex content (tables, charts)
+- Ensure content is readable and understandable
+- Support multiple input methods and assistive technologies
+
+## Examples
+
+<example>
+  <!-- Properly labeled input with helper text -->
+  <label for="email">Email</label>
+  <input type="email" id="email" aria-describedby="email-helper"/>
+  <p id="email-helper">We'll never share your email address.</p>
+</example>
+
+<example type="invalid">
+  <!-- Missing label and no ARIA attributes -->
+  <input type="text"/>
+</example>
