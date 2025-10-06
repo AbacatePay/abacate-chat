@@ -4,13 +4,15 @@ import { ArrowLeft } from "lucide-react";
 import { Button } from "@/app/components/ui/button";
 import { videos } from "@/app/services/videos";
 import { useParams, useRouter } from "next/navigation";
-import { useMemo } from "react";
+import { useMemo, useState } from "react";
 import { VideoStructuredData } from "./structured-data";
+import { ChatSidebar } from "../components/ChatSidebar";
 
 export default function VideoPage() {
   const params = useParams();
   const router = useRouter();
   const slug = params.slug as string;
+  const [isChatOpen, setIsChatOpen] = useState(false);
 
   const video = useMemo(() => {
     return videos.find((v) => v.id === slug);
@@ -22,7 +24,7 @@ export default function VideoPage() {
         <p className="text-lg font-semibold text-foreground">
           Vídeo não encontrado
         </p>
-        <Button onClick={() => router.push("/academy")} className="mt-4 gap-2">
+        <Button onClick={() => router.push("/academy")} className="mt-4 gap-2 ">
           <ArrowLeft className="h-4 w-4" />
           Voltar para Academy
         </Button>
@@ -33,15 +35,20 @@ export default function VideoPage() {
   return (
     <>
       <VideoStructuredData video={video} />
-      <div className="mx-auto flex w-full max-w-5xl flex-col gap-6 p-6">
-        <Button
-          variant="ghost"
-          onClick={() => router.push("/academy")}
-          className="w-fit gap-2"
-        >
-          <ArrowLeft className="h-4 w-4" />
-          Voltar para todos os vídeos
-        </Button>
+      <div className="relative mx-auto flex w-full max-w-5xl flex-col gap-6 p-6">
+        <div className="flex flex-col md:flex-row md:items-center md:justify-between">
+          <Button
+            variant="ghost"
+            onClick={() => router.push("/academy")}
+            className="w-fit gap-2"
+          >
+            <ArrowLeft className="h-4 w-4" />
+            Voltar para todos os vídeos
+          </Button>
+          <Button onClick={() => setIsChatOpen(true)} className="mt-4 gap-2 bg-gradient-to-r from-[#9EEA6C] to-[#7FD857] hover:from-[#8FE05C] hover:to-[#6FC847] text-white shadow-lg hover:shadow-xl transition-all duration-300 font-semibold relative overflow-hidden before:absolute before:top-0 before:-left-full before:h-full before:w-full before:bg-gradient-to-r before:from-transparent before:via-white/20 before:to-transparent before:transition-all before:duration-700 hover:before:left-full">
+            🥑 Pergunte para a AbacatIA
+          </Button>
+        </div>
 
         <div className="relative aspect-video w-full overflow-hidden rounded-xl bg-black">
           <iframe
@@ -89,6 +96,12 @@ export default function VideoPage() {
           </div>
         </div>
       </div>
+
+      <ChatSidebar
+        isOpen={isChatOpen}
+        onClose={() => setIsChatOpen(false)}
+        video={video}
+      />
     </>
   );
 }
