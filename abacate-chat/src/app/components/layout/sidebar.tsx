@@ -143,7 +143,7 @@ export const Sidebar = memo(function Sidebar({ className }: SidebarProps) {
                       : "hover:bg-accent/50 hover:opacity-100"
                   )}
                   style={{
-                    opacity: item.active ? 1 : 0.4,
+                    opacity: item.active ? 1 : 0.7,
                     transition: "opacity 200ms ease-in-out",
                     willChange: "opacity",
                   }}
@@ -153,7 +153,7 @@ export const Sidebar = memo(function Sidebar({ className }: SidebarProps) {
                       "flex h-8 w-12 flex-shrink-0 items-center justify-center rounded-xl",
                       "transition-colors duration-200",
                       item.active
-                        ? "bg-primary/10 text-primary"
+                        ? "text-green-abc"
                         : "text-foreground"
                     )}
                   >
@@ -161,6 +161,7 @@ export const Sidebar = memo(function Sidebar({ className }: SidebarProps) {
                       className={cn(
                         "h-5 w-5 transition-transform ease-linear",
                         "group-hover:scale-110",
+                        item.active ? "text-[#4dd47e]" : "text-foreground",
                         {
                           "scale-110": item.active,
                         }
@@ -169,9 +170,9 @@ export const Sidebar = memo(function Sidebar({ className }: SidebarProps) {
                   </div>
                   <span
                     className={cn(
-                      "font-medium md:text-xs text-foreground",
+                      "font-medium md:text-xs",
                       "text-sm md:text-center",
-                      item.active && "font-semibold"
+                      item.active ? "text-[#4dd47e] font-semibold" : "text-foreground"
                     )}
                   >
                     {item.label}
