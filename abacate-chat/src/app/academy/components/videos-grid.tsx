@@ -11,16 +11,25 @@ export function VideosGrid() {
   const [searchQuery, setSearchQuery] = useState("");
 
   const filteredVideos = useMemo(() => {
+    const normalizedQuery = searchQuery.trim().toLowerCase();
+
     return videos.filter((video: InterfaceVideo) => {
-      const matchesTab =
-        selectedTab === "todos" || video.category.includes(selectedTab);
-      const matchesSearch =
-        searchQuery === "" ||
-        video.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
-        video.category.some((cat) =>
-          cat.toLowerCase().includes(searchQuery.toLowerCase())
-        );
-      return matchesTab && matchesSearch;
+      if (selectedTab !== "todos" && !video.category.includes(selectedTab)) {
+        return false;
+      }
+
+      if (!normalizedQuery) {
+        return true;
+      }
+
+      const lowerTitle = video.title.toLowerCase();
+      if (lowerTitle.includes(normalizedQuery)) {
+        return true;
+      }
+
+      return video.category.some((cat) =>
+        cat.toLowerCase().includes(normalizedQuery)
+      );
     });
   }, [selectedTab, searchQuery]);
 
