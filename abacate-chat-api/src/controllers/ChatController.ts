@@ -6,21 +6,31 @@ import {
 } from "./schemas/ChatControllerSchema";
 import { validateSchema } from "./schemas/validateSchema";
 import { RateLimitedStream } from "../pkg/stream/RateLimitedStream";
+import { upload } from "../middlewares/multerConfig";
+import { validateAudioOrMessage } from "./schemas/validateAudioOrMessage";
+import { ITranscribeAudioModel } from "../interfaces/ITranscribeAudioModel";
 
 export class ChatController {
   private router: Router;
   private chatService: IChatModel;
+  private transcribeAudioService: ITranscribeAudioModel;
 
-  constructor(chatService: IChatModel) {
+  constructor(
+    chatService: IChatModel,
+    transcribeAudioService: ITranscribeAudioModel
+  ) {
     this.router = Router();
     this.chatService = chatService;
+    this.transcribeAudioService = transcribeAudioService;
     this.setupRoutes();
   }
 
   private setupRoutes() {
     this.router.post(
       "/chat/create",
+      upload.single("audio"),
       validateSchema(StartChatSchema),
+      validateAudioOrMessage,
       async (req: Request, res: Response) => {
         await this.createChat(req, res);
       }
@@ -28,7 +38,9 @@ export class ChatController {
 
     this.router.post(
       "/chat/continue",
+      upload.single("audio"),
       validateSchema(ContinueChatSchema),
+      validateAudioOrMessage,
       async (req: Request, res: Response) => {
         await this.continueChat(req, res);
       }
@@ -43,18 +55,30 @@ export class ChatController {
     return this.router;
   }
 
+  private async parseMessage(req: Request): Promise<string> {
+    const data = req.body;
+    const audioFile = req.file;
+
+    if (audioFile) {
+      return await this.transcribeAudioService.transcribeAudio(
+        audioFile.buffer
+      );
+    }
+
+    return data.message?.trim();
+  }
+
   private async createChat(req: Request, res: Response): Promise<void> {
     try {
       const data = req.body;
+
+      const message = await this.parseMessage(req);
 
       if (data.stream !== false) {
         this.setStreamHeaders(res);
       }
 
-      const result = await this.chatService.createChat(
-        data.message,
-        data.option
-      );
+      const result = await this.chatService.createChat(message, data.option);
 
       if (data.stream !== false) {
         // Send the threadId first
@@ -82,7 +106,9 @@ export class ChatController {
 
   private async continueChat(req: Request, res: Response): Promise<void> {
     try {
-      const { threadId, message, stream } = req.body;
+      const { threadId, _, stream } = req.body;
+
+      const message = await this.parseMessage(req);
 
       const aiResponse = this.chatService.continueChat(threadId, message);
       if (stream !== false) {
