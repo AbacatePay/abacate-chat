@@ -1,14 +1,14 @@
 import { useState, useRef, useCallback, useEffect } from "react";
 import { useRouter } from "next/navigation";
-import {
-  ChatMessage as ChatMessageType,
-  StreamChunk,
-  chatApiService,
-} from "@/app/services/chatApi";
+import { ChatMessage as ChatMessageType, StreamChunk, chatApiService } from "@/app/services/chatApi";
 import { useToast } from "@/app/hooks/use-toast";
 
+interface UseChatOptions {
+  disableRedirect?: boolean;
+}
 
-export const useChat = () => {
+export const useChat = (options: UseChatOptions = {}) => {
+  const { disableRedirect = false } = options;
   const [messages, setMessages] = useState<ChatMessageType[]>([]);
   const [inputValue, setInputValue] = useState("");
   const [isLoading, setIsLoading] = useState(false);
@@ -19,7 +19,6 @@ export const useChat = () => {
   const cleanupRef = useRef<(() => void) | null>(null);
   const { toast } = useToast();
   const router = useRouter();
-
 
   const handleChunk = useCallback((chunk: StreamChunk) => {
     if (chunk.type === "threadId" && chunk.threadId) {
@@ -55,18 +54,15 @@ export const useChat = () => {
     };
 
     setMessages((prev) => [...prev, userMessage, botMessage]);
-    router.replace("/");
+    if (!disableRedirect) {
+      router.replace("/");
+    }
     setIsLoading(true);
 
     try {
-      const cleanup = await chatApiService.sendMessageStream(
-        currentThreadId!,
-        userMessage.content,
-        handleChunk,
-        () => {
-          setIsLoading(false);
-        }
-      );
+      const cleanup = await chatApiService.sendMessageStream(currentThreadId || undefined, userMessage.content, handleChunk, () => {
+        setIsLoading(false);
+      });
 
       cleanupRef.current = cleanup;
     } catch (error) {
@@ -75,8 +71,7 @@ export const useChat = () => {
       setMessages((prev) => {
         const errorMessage: ChatMessageType = {
           id: (Date.now() + 1).toString(),
-          content:
-            "Sorry, I encountered an error while processing your request. Please try again.",
+          content: "Sorry, I encountered an error while processing your request. Please try again.",
           sender: "bot",
           timestamp: new Date(),
         };

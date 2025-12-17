@@ -28,9 +28,9 @@ export function VideoCard({ video }: VideoCardProps) {
             target.src = `https://img.youtube.com/vi/${video.youtubeId}/hqdefault.jpg`;
           }}
         />
-        <div className="absolute inset-0 flex items-center justify-center bg-black/20 transition-all group-hover:bg-black/30">
-          <div className="flex h-12 w-12 items-center justify-center rounded-full bg-primary transition-all group-hover:scale-110">
-            <Play className="ml-0.5 h-5 w-5 fill-primary-foreground text-primary-foreground" />
+        <div className="absolute inset-0 flex items-center justify-center bg-black/20 transition-all group-hover:bg-black/40">
+          <div className="flex h-16 w-16 items-center justify-center rounded-full bg-white/95 backdrop-blur-sm opacity-0 transition-all duration-300 group-hover:opacity-100 group-hover:scale-110 shadow-lg">
+            <Play className="ml-1 h-7 w-7 fill-black text-black" />
           </div>
         </div>
       </div>
