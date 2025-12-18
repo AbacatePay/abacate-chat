@@ -5,7 +5,7 @@ import { PhpIcon } from "@icons/stack/php";
 import PythonIcon from "@icons/stack/python";
 import { RubyIcon } from "@icons/stack/Ruby";
 
-const prompt = {
+export const prompt = {
 lovable: `Me ajude a integrar a AbacatePay usando Lovable`,
 
 python : `Me ajude a integrar a AbacatePay usando Python`,
